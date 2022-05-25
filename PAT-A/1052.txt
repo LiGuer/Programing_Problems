@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<stdio.h>
+#include<stack>
+#define MAXN 100010
+
+struct node
+{
+    int add,data,next;
+    bool flag=false;
+}num[MAXN];
+bool cmp(node a,node b)
+{
+    return !a.flag||!b.flag?a.flag>b.flag:a.data<b.data;
+}
+
+int main()
+{
+    int n,st;
+    scanf("%d%d",&n,&st);
+    for(int i=0;i<n;i++){
+        int add,data,next;
+        cin>>add>>data>>next;
+        num[add].add=add;
+        num[add].data=data;
+        num[add].next=next;
+    }
+    int st1=st,cur=0;
+    while(st1!=-1){
+        num[st1].flag=true;
+        st1=num[st1].next;
+        cur++;
+    }
+    if(cur==0){cout<<"0 -1";return 0;}
+    sort(num,num+MAXN,cmp);
+    printf("%d %05d\n",cur,num[0].add);
+    for(int i=0;i<cur;i++){
+        printf("%05d %d ",num[i].add,num[i].data);
+        if(i!=cur-1)printf("%05d\n",num[i+1].add);
+        else cout<<-1;
+    }
+}

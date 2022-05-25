@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<unordered_map>
+unordered_map<int,int> pos;
+int M,N;
+vector<int> pre,in;
+int LCA(int a,int b,int pl,int il,int ir)
+{
+    if(a>b)swap(a,b);
+    int root=pre[pl],cur=pos[root],ans;
+    if(cur>a&&cur<b)return root;
+    else if(cur==a||cur==b)return root;
+    if(cur>a&&cur>b)ans=LCA(a,b,pl+1,il,cur-1);
+    else if(cur<a&&cur<b)ans=LCA(a,b,pl+cur-il+1,cur+1,ir);
+    return ans;
+}
+int main()
+{
+    scanf("%d%d",&M,&N);
+    pre.resize(N+1);in.resize(N+1);
+    for(int i=1;i<=N;i++){
+        scanf("%d",&in[i]);
+        pos[in[i]]=i;
+    }
+    for(int i=1;i<=N;i++)scanf("%d",&pre[i]);
+    for(int i=0;i<M;i++){
+        int a,b;
+        scanf("%d%d",&a,&b);
+        if(!pos[a]&&!pos[b])printf("ERROR: %d and %d are not found.\n",a,b);
+        else if(!pos[a]||!pos[b])printf("ERROR: %d is not found.\n",pos[a]==0?a:b);
+        else{
+            int ans=LCA(pos[a],pos[b],1,1,N);
+            if(ans==a)printf("%d is an ancestor of %d.\n",ans,b);
+            else if(ans==b)printf("%d is an ancestor of %d.\n",ans,a);
+            else printf("LCA of %d and %d is %d.\n",a,b,ans);
+        }
+    }
+    return 0;
+}

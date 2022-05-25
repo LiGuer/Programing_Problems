@@ -1,0 +1,38 @@
+50%ÕýÈ·
+#include<bits/stdc++.h>
+using namespace std;
+int n,a[105];
+bool able[10000]={0};
+int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
+bool judge(int k)
+{
+    if(able[k])return true;
+    if(k<=0)return false;
+    for(int i=n-1;i>=0;i--){
+        if(k==a[i])return true;
+        if(judge(k-a[i]))return true;
+    }
+    return false;
+}
+int main()
+{
+    freopen("C:/Users/ÐÜè÷ºÀ/Desktop/input1.txt","r",stdin);
+    cin>>n;
+    int gcdall;
+    for(int i=0;i<n;i++){
+        cin>>a[i];gcdall=gcd(a[i],gcdall);
+    }
+    if(gcdall!=1){cout<<"INF";return 0;}
+    sort(a,a+n);
+    int temp=2147483647;
+    for(int i=0;i<n-1;i++){
+        int x=a[i],y=a[i+1];
+        if(gcd(y,x)==1)temp=temp<x*y-x-y?temp:x*y-x-y;
+    }
+    int ans=0;
+    for(int i=1;i<=temp;i++){
+        if(!judge(i)){ans++;}
+        else able[i]=1;
+    }
+    cout<<ans;
+}

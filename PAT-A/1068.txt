@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+#include<vector>
+#define MAXN 10005
+int main()
+{
+    int N,W,w[MAXN],dp[MAXN];
+    scanf("%d %d",&N,&W);
+    vector<int> mark[105];
+    for(int i=1;i<=N;i++)scanf("%d",&w[i]);
+    sort(w+1,w+N+1);
+    for(int i=1;i<=N;i++){
+        for(int v=W;v>=w[i];v--){
+            if(dp[v]<=dp[v-w[i]]+w[i]){
+                vector<int> temp=mark[v-w[i]];
+                temp.push_back(w[i]);
+                if(dp[v]==dp[v-w[i]]+w[i]){
+                    int o=0,len=temp.size();
+                    for(int j=0;j<len;j++){
+                        if(mark[v][j]>temp[j]){o=1;break;}
+                    }
+                    if(!o)continue;
+                }
+                dp[v]=dp[v-w[i]]+w[i];
+                mark[v]=temp;
+            }
+        }
+        //for(int v=0;v<=W;v++){for(int j=0;j<mark[v].size();j++)cout<<mark[v][j]<<'-';cout<<endl;}
+        //for(int j=0;j<=W;j++)cout<<dp[j]<<' ';cout<<endl;
+    }
+    if(dp[W]!=W){printf("No Solution");return 0;}
+    for(int i=0;i<mark[W].size();i++){
+        if(i==0)printf("%d",mark[W][i]);
+        else printf(" %d",mark[W][i]);
+    }
+    return 0;
+}

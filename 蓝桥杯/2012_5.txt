@@ -1,0 +1,3 @@
+int* y = (int*)malloc(16*sizeof(int));
+y[(i%4+1)*4-i/4-1]=x[i];
+半对，不是4，应该是rank

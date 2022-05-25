@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#define MAXN 10000
+#include<queue>;
+int post[MAXN],in[MAXN];
+struct node
+{
+    int data;
+    node *lchild,*rchild;
+};
+int N;
+node* create(int pl,int pr,int il,int ir)
+{
+    if(pl>pr)return NULL;
+    node* root=new node;
+    root->data=post[pr];
+    int cur=il;
+    while(in[cur]!=post[pr])cur++;
+    int numl=cur-il;
+    root->lchild=create(pl,pl+numl-1,il,cur-1);
+    root->rchild=create(pl+numl,pr-1,cur+1,ir);
+    return root;
+
+}
+void BFS(node* root)
+{
+    queue<node*> Q;
+    Q.push(root);
+    int o=0;
+    while(!Q.empty()){
+        node* temp=Q.front();
+        Q.pop();
+        if(o)printf(" ");o=1;
+        printf("%d",temp->data);
+        if(temp->lchild!=NULL)Q.push(temp->lchild);
+        if(temp->rchild!=NULL)Q.push(temp->rchild);
+    }
+}
+
+int main()
+{
+
+    scanf("%d",&N);
+    for(int i=0;i<N;i++)cin>>post[i];
+    for(int i=0;i<N;i++)cin>>in[i];
+    node* root=create(0,N-1,0,N-1);
+    BFS(root);
+    return 0;
+
+}

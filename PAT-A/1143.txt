@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<unordered_map>
+unordered_map<int,bool> pos;
+vector<int> pre;
+int main()
+{
+    int M,N;
+    scanf("%d%d",&M,&N);
+    pre.resize(N+1);
+    for(int i=1;i<=N;i++){
+        scanf("%d",&pre[i]);
+        pos[pre[i]]=1;
+    }
+    for(int i=0;i<M;i++){
+        int a,b,ans;
+        scanf("%d%d",&a,&b);
+        if(!pos[a]&&!pos[b])printf("ERROR: %d and %d are not found.\n",a,b);
+        else if(!pos[a]||!pos[b])printf("ERROR: %d is not found.\n",pos[a]==0?a:b);
+        else{
+            for(int i=1;i<=N;i++)if((pre[i]<=a&&pre[i]>=b)||(pre[i]>=a&&pre[i]<=b)){ans=pre[i];break;}
+            if(ans==a||ans==b)printf("%d is an ancestor of %d.\n",ans,ans==a?b:a);
+            else printf("LCA of %d and %d is %d.\n",a,b,ans);
+        }
+    }
+    return 0;
+}

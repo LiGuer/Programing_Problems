@@ -1,0 +1,104 @@
+method 1:
+
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+struct node{int id,w;};
+vector<node> graph[505];
+int N,M,C1,C2;
+int forceall[505],minpath=0,maxfoc=0,ans=0;
+void DFS(int c1,int c0,int path,int force)
+{
+    if(c1==C2){
+        if(path<minpath){minpath=path;maxfoc=force;ans=1;}
+        else if(path==minpath){
+            ans++;
+            if(force>maxfoc)maxfoc=force;
+        }
+        return;
+    }
+    else if(path>=minpath)return;
+    for(int i=0;i<graph[c1].size();i++){
+        int temp=graph[c1][i].id;
+        if(temp==c0)continue;
+        DFS(temp,c1,path+graph[c1][i].w,force+forceall[temp]);
+    }
+}
+int main()
+{
+
+    scanf("%d %d %d %d",&N,&M,&C1,&C2);
+    for(int i=0;i<N;i++){
+        scanf("%d",&forceall[i]);
+    }
+    for(int i=0;i<M;i++){
+        int c1,c2,w;
+        scanf("%d %d %d",&c1,&c2,&w);
+        graph[c1].push_back({c2,w});
+        graph[c2].push_back({c1,w});
+        minpath+=w;
+    }
+    DFS(C1,C1,0,forceall[C1]);
+    cout<<ans<<' '<<maxfoc;
+}
+
+method 2: (Dijkstra algorithm)
+
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+const int MAXN=505;
+const int INF=1147483647;
+struct node{int id,w;};
+vector<node> graph[MAXN];
+int N,M,s,C2,weight[MAXN];
+int d[MAXN],w[MAXN],num[MAXN]={0};
+bool book[MAXN]={false};
+void Dijkstra(int s)
+{
+    fill(d,d+MAXN,INF);
+    d[s]=0,w[s]=weight[s],num[s]=1;
+    for(int i=0;i<N;i++){
+        int u=-1,MIN=INF;
+        for(int j=0;j<N;j++){
+            if(book[j]==false&&d[j]<MIN){
+                u=j,MIN=d[j];
+            }
+        }
+        if(u==-1||u==C2)return;
+        book[u]=true;
+        for(int j=0;j<graph[u].size();j++){
+            int v=graph[u][j].id;
+            if(book[v]==false){
+                if(d[u]+graph[u][j].w<d[v]){
+                    d[v]=d[u]+graph[u][j].w;
+                    w[v]=w[u]+weight[v];
+                    num[v]=num[u];
+                }else if(d[u]+graph[u][j].w==d[v]){
+                    num[v]+=num[u];
+                    if(w[v]<w[u]+weight[v]){
+                        w[v]=w[u]+weight[v];
+                    }
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    scanf("%d %d %d %d",&N,&M,&s,&C2);
+    for(int i=0;i<N;i++){
+        scanf("%d",&weight[i]);
+    }
+    for(int i=0;i<M;i++){
+        int c1,c2,w;
+        scanf("%d %d %d",&c1,&c2,&w);
+        graph[c1].push_back({c2,w});
+        graph[c2].push_back({c1,w});
+    }
+    Dijkstra(s);
+    cout<<num[C2]<<' '<<w[C2];
+    return 0;
+}

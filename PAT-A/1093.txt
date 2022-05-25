@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<string>
+#define maxn 1000000007
+int main()
+{
+    string str;
+    cin>>str;
+    int t=0,at=0,pat=0;
+    for(int i=str.length()-1;i>=0;i--){
+        char c=str[i];
+        if(c=='T')t++;
+        else if(c=='A')at+=t;
+        else if(c=='P')pat+=at;
+        if(pat>maxn)pat%=maxn;
+    }
+    cout<<pat;
+}

@@ -1,0 +1,57 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<unordered_map>
+#include<algorithm>
+using namespace std;
+#define MAXN 10005
+vector<int> graph[MAXN];
+unordered_map<int,int> gender;
+struct node{int t,r;};
+bool cmp(node a,node b)
+{
+    return a.t!=b.t?a.t<b.t:a.r<b.r;
+}
+int main()
+{
+    int M,N,K;
+    scanf("%d%d",&N,&M);
+    for(int i=0;i<M;i++){
+        string u,v;
+        cin>>u>>v;
+        int a=stoi(u),b=stoi(v);
+        if(u[0]=='-'){a*=-1;gender[a]=-1;}
+        else gender[a]=1;
+        if(v[0]=='-'){b*=-1;gender[b]=-1;}
+        else gender[b]=1;
+        graph[a].push_back(b);
+        graph[b].push_back(a);
+    }
+    scanf("%d",&K);
+    while(K--){
+        int a,b;
+        scanf("%d%d",&a,&b);
+        a*=a>0?1:-1;
+        b*=b>0?1:-1;
+        vector<node> ans;
+        for(int i=0;i<graph[a].size();i++){
+            int t=graph[a][i];
+            if(gender[t]!=gender[a]||t==a||t==b)continue;
+            for(int j=0;j<graph[t].size();j++){
+                int r=graph[t][j];
+                if(gender[r]!=gender[b]||r==a||r==b)continue;
+                for(int k=0;k<graph[r].size();k++){
+                    if(graph[r][k]==b){
+                        ans.push_back({t,r});
+                    }
+                }
+            }
+        }
+        printf("%d\n",ans.size());
+        sort(ans.begin(),ans.end(),cmp);
+        for(int i=0;i<ans.size();i++){
+            printf("%04d %04d\n",ans[i].t,ans[i].r);
+        }
+    }
+    return 0;
+}

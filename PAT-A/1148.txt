@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#define MAXN 105
+int main()
+{
+    int N,a[MAXN],o=1;
+    scanf("%d",&N);
+    for(int i=1;i<=N;i++){
+        scanf("%d",&a[i]);
+    }
+    for(int i=1;i<=N;i++){
+        for(int j=i+1;j<=N;j++){
+            int cur=0,ki[3];
+            for(int k=1;k<=N;k++){
+                if(a[k]>0&&a[k]!=i&&a[k]!=j)continue;
+                else if(a[k]<0&&(a[k]==-1*i||a[k]==-1*j))continue;
+                ki[cur++]=k;
+                if(cur>2)break;
+            }
+            if(cur!=2)continue;
+            else if(ki[0]==i&&ki[1]==j)continue;
+            else if(ki[0]!=i&&ki[1]!=j)continue;
+            cout<<i<<' '<<j<<endl;o=0;break;
+        }
+        if(o==0)break;
+    }
+    if(o)cout<<"No Solution";
+return 0;
+}

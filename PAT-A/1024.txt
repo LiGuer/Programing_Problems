@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<algorithm>
+void add(string &a,string b)
+{
+    int len=a.length();
+    for(int i=len-1;i>=0;i--){
+        a[i]+=b[i]-'0';
+        if(a[i]>'9'&&i!=0){a[i]-=10;a[i-1]++;}
+    }
+    if(a[0]>'9'){a[0]-=10;a.insert(0,1,'1');}
+}
+int main()
+{
+    string a;int K;
+    cin>>a>>K;
+    int Kt=K;
+    while(Kt--){
+        string b=a;
+        reverse(a.begin(),a.end());
+        if(a==b)break;
+        add(a,b);
+    }
+    cout<<a<<endl<<K-Kt-1;
+    return 0;
+}

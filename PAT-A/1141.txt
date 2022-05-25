@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<string>
+#include<unordered_map>
+#include<algorithm>
+#include<vector>
+struct node {string sch;int s,n;};
+bool cmp(node a,node b){
+    if(a.s!=b.s)return a.s>b.s;
+    if(a.n!=b.n)return a.n<b.n;
+    return a.sch<b.sch;
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    unordered_map<string,double> a;
+    unordered_map<string,int> b;
+    for(int i=0;i<N;i++){
+        string id,sch;double w;
+        cin>>id>>w>>sch;
+        transform(sch.begin(),sch.end(),sch.begin(),::tolower);
+        b[sch]++;
+        switch(id[0]){
+            case 'B': a[sch]+=w/1.5;break;
+            case 'A': a[sch]+=w;break;
+            case 'T': a[sch]+=w*1.5;break;
+        }
+    }
+    vector<node> ans;
+    for(auto it=a.begin();it!=a.end();it++){
+        ans.push_back({it->first,it->second,b[it->first]});
+    }
+    sort(ans.begin(),ans.end(),cmp);
+    int cur=1;printf("%d\n",ans.size());
+    for(int i=0;i<ans.size();i++){
+        if(i!=0&&ans[i].s!=ans[i-1].s)cur=i+1;
+        cout<<cur<<' '<<ans[i].sch;
+        printf(" %d %d\n",ans[i].s,ans[i].n);
+    }
+    return 0;
+}

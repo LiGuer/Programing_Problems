@@ -1,0 +1,25 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+string fun(int t)
+{
+	string ans;
+	if(t==0)return "0";
+	while(t>0){
+		char temp=t%16;
+		if(temp<10)temp+='0';
+		else temp+='A'-10;
+		ans+=temp;
+		t/=16;
+	}
+	reverse(ans.begin(),ans.end());
+	return ans;
+}
+int main()
+{
+	int n;
+	cin>>n;
+	cout<<fun(n);
+	return 0;
+}

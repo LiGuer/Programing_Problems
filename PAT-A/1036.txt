@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+#define MAXN 10000
+struct student
+{
+    char name[15],ID[15],gender;
+    int grade;
+}stu[MAXN];
+bool cmp1(student a,student b)
+{
+    if(a.gender!=b.gender)return a.gender<b.gender;
+    return a.grade>b.grade;
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        scanf("%s %c %s %d",&stu[i].name,&stu[i].gender,&stu[i].ID,&stu[i].grade);
+    }
+    int diff;
+    sort(stu,stu+N,cmp1);
+    if(stu[0].gender!='F')
+        printf("Absent\n%s %s\nNA",stu[N-1].name,stu[N-1].ID);
+    else if(stu[N-1].gender!='M')
+        printf("%s %s\nAbsent\nNA",stu[0].name,stu[0].ID);
+    else{
+        printf("%s %s\n%s %s\n",stu[0].name,stu[0].ID,stu[N-1].name,stu[N-1].ID);
+        diff=stu[0].grade-stu[N-1].grade;
+        printf("%d",diff);
+    }
+    return 0;
+}

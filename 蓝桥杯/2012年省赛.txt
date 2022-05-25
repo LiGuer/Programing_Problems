@@ -1,0 +1,159 @@
+2.
+
+对
+
+21978
+
+附.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+bool judge(int a,int b)
+{
+	for(int i=0;i<5;i++){
+		int ta=a%10;a/=10;
+		int key=1;for(int j=0;j<4-i;j++)key*=10;
+		int tb=b/key;b%=key;
+		if(ta!=tb)return false;
+	}
+	return true;
+}
+int main()
+{
+	int a[10]={0,1,2,3,4,5,6,7,8,9};
+	while(next_permutation(a,a+10)){
+		int ta=0;for(int i=0;i<5;i++)ta=ta*10+a[i];
+		if(ta<10000)continue;
+		for(int i=1;i<=9;i++){
+			int t=ta*i;
+			if(ta<10000||ta>99999)continue;
+			if(judge(ta,t))cout<<ta<<endl;
+		}
+	}
+} 
+
+
+3.
+
+对
+12,6,4,2,0
+15,10,3,2,0
+18,9,3,2,0
+20,5,4,2,0
+
+
+附.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	for(int i=1;i<=20;i++){
+		for(int j=1;j<i;j++){
+			for(int k=1;k<j;k++){
+				for(int o=1;o<k;o++){
+					double t=1.0/i+1.0/j+1.0/k+1.0/o;
+					if(t==1)cout<<i<<','<<j<<','<<k<<','<<o<<','<<0<<endl;
+				}
+			}
+		}
+	}
+}
+
+
+4.
+1011010000
+0111010000
+0010110011
+
+对
+
+附.
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	for(int i=0;i<1024;i++){
+		int s=10,tempi=i,cur=1;
+		while(tempi>0||cur<=10){
+			int t=tempi%2;
+			if(t==0)s-=cur;
+			else s*=2;
+			tempi/=2;
+			cur++;
+		}
+		if(s==100){
+			tempi=i;cur=1;
+			while(tempi>0||cur<=10){
+				cout<<tempi%2;
+				tempi/=2;
+				cur++;
+			}cout<<endl;
+		}
+	}
+} 
+
+
+5.
+int* y = (int*)malloc(16*sizeof(int));// 填空
+y[(i%4+1)*4-i/4-1]=x[i];// 填空
+
+半对，不是4，应该是rank
+
+6.
+
+r[1] = n2 / base + n3 / base + n4 % base; // 填空
+r[1] += r[0] / base;; // 填空
+
+错误，下面应该是r[1] += r[2] / base;; // 填空
+代码填空还是先猜再理解，不能想当然就过了。
+
+8.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int fun2(int a)
+{
+	int t=0;
+	while(a/10!=0){
+		while(a>0){
+			t+=a%10;
+			a/=10;
+		}
+		a=t;t=0;
+	}
+	return a;
+}
+void fun(string s)
+{
+	string str[100];
+	int cur=0;
+	while(s!=""){
+		str[cur]=s.substr(0,6);
+		s.erase(0,6);
+		cur++;
+	}
+	int a[7]={0};
+	for(int i=0;i<cur;i++){
+		for(int j=0;j<6;j++){
+			if(str[i][j]>='a'&&str[i][j]<='z'){
+				a[j]+=str[i][j];
+			}
+		}
+	}
+	for(int i=0;i<6;i++)a[i]=fun2(a[i]); 
+	for(int i=0;i<6;i++)cout<<a[i];cout<<endl;
+}
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--){
+		string s;
+		cin>>s;
+		fun(s);
+	}
+	return 0;
+}

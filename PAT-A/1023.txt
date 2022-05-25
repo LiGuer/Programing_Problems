@@ -1,0 +1,34 @@
+#include<iostream>
+using namespace std;
+#include<string>
+int main()
+{
+    string str;
+    cin>>str;
+    int a[25]={0},len;
+    len=str.length();
+    for(int i=len-1;i>=0;i--){
+        a[len-1-i]=str[i]-'0';
+    }
+    int book[10]={0};
+    for(int i=0;i<len;i++){
+        book[a[i]]++;
+    }
+    for(int i=len-1;i>=0;i--){
+        a[i]*=2;
+        if(a[i]>9){
+            a[i]%=10;a[i+1]++;
+        }
+    }
+    if(a[len]!=0)len++;
+    for(int i=0;i<len;i++){
+        book[a[i]]--;
+    }
+    int o=1;
+    for(int i=0;i<10;i++){
+        if(book[i]!=0){o=0;break;}
+    }
+    if(o==1)cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+    for(int i=len-1;i>=0;i--)cout<<a[i];
+}

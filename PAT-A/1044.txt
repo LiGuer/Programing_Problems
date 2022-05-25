@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+#include<vector>
+struct node
+{
+    int i,j;
+};
+vector<node> bad;
+int a[100005],minn=9999;
+void fun(int M,int i,int begin,int end)
+{
+    if(begin>end)return;
+    int temp=(begin+end)/2;
+    if(a[i]-a[temp]-M<minn&&a[i]-a[temp]-M>=0){
+        bad.clear();
+        minn=a[i]-a[temp]-M;
+        node tem={i,temp+1};bad.push_back(tem);
+    }
+    else if(a[i]-a[temp]-M==minn){
+        node tem={i,temp+1};bad.push_back(tem);
+    }
+    if(a[i]-a[temp]==M){cout<<temp+1<<'-'<<i<<endl;return;}
+    else if(a[i]-a[temp]>M)fun(M,i,temp+1,end);
+    else fun(M,i,begin,temp-1);
+}
+
+int main()
+{
+    int N,M;
+    scanf("%d %d",&N,&M);
+    a[0]=0;cin>>a[1];
+    for(int i=2;i<=N;i++){
+        int temp;
+        scanf("%d",&temp);
+        a[i]=temp+=a[i-1];
+    }
+    for(int i=1;i<=N;i++){
+        fun(M,i,0,i-1);
+    }
+    if(minn!=0){
+        for(int i=0;i<bad.size();i++)
+            cout<<bad[i].j<<'-'<<bad[i].i<<endl;
+    }
+}

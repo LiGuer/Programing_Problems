@@ -1,0 +1,22 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+string fun(int t)
+{
+	string ans;
+	while(t>0){
+		ans+=t%2+'0';
+		t/=2;
+	}
+	reverse(ans.begin(),ans.end());
+	ans.insert(0,5-ans.length(),'0');
+	return ans;
+}
+int main()
+{
+	for(int i=0;i<32;i++){
+		string t=fun(i);
+		cout<<t<<endl;
+	}
+	return 0;
+}

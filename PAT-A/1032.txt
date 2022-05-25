@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<stdio.h>
+#include<stack>
+#define MAXN 100010
+
+struct node
+{
+    char data;
+    int next;
+    bool flag=false;
+}List[MAXN];
+
+int main()
+{
+    int st1,st2,N;
+    scanf("%d%d%d",&st1,&st2,&N);
+    for(int i=0;i<N;i++){
+        int add,next;char data;
+        cin>>add>>data>>next;
+        List[add].data=data;
+        List[add].next=next;
+    }
+    while(st1!=-1){
+        List[st1].flag=true;
+        st1=List[st1].next;
+    }
+    int o=1;
+    while(st2!=-1){
+        if(List[st2].flag){printf("%05d",st2);o=0;break;}
+        st2=List[st2].next;
+    }
+    if(o)cout<<-1;
+}

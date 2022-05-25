@@ -1,0 +1,37 @@
+未确认   个人认为没问题
+#include<bits/stdc++.h>
+using namespace std;
+#include<vector>
+#define ll long long
+vector<int> a;
+int n,k;
+ll dfs(int cur,int sum,int step)
+{//cout<<a[cur]<<"---"<<sum<<"---"<<step<<endl;
+    if(step==3){
+        if(sum%k==0)return sum;
+        else return 0;
+    }
+    for(int i=cur-1;i>=0;i--){
+        ll t=dfs(i,sum+a[i],step+1);
+        if(t!=0)return t;
+    }
+    return 0;
+}
+int main()
+{
+    //freopen("C:/Users/熊梓豪/Desktop/input.txt","r",stdin);
+    ios::sync_with_stdio(false);
+    cin>>n>>k;
+    a.resize(n);
+    for(int i=0;i<n;i++)cin>>a[i];
+    sort(a.begin(),a.end());
+    int cur=n-1;
+    ll ans=0;
+    while(cur>=2){
+        ll t=dfs(cur--,a[cur],1);
+        if(t>ans)ans=t;
+        else break;
+    }
+    cout<<ans;
+    return 0;
+}

@@ -1,0 +1,42 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+string int2str(int t)
+{
+	string ans;
+	while(t>0){
+		char str=t%10+'0';
+		ans+=str;
+		t/=10;
+	}
+	return ans;
+}
+int sum(int t)
+{
+	int ans=0;
+	while(t>0){
+		ans+=t%10;
+		t/=10;
+	}
+	return ans;
+}
+int main()
+{
+	vector<int> ans;
+	int n;
+	cin>>n;
+	for(int i=10000;i<=999999;i++){
+		int s=sum(i);
+		if(s==n){
+			string t1=int2str(i);
+			string t2=t1;
+			reverse(t1.begin(),t1.end());
+			if(t1==t2)ans.push_back(i);
+		}
+	}
+	for(int i=0;i<ans.size();i++){
+		cout<<ans[i]<<endl;
+	}
+	return 0;
+}

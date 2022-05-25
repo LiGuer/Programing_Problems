@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+bool cmp(int a,int b)
+{
+    return a>b;
+}
+int main()
+{
+    int Nc,a[100005];
+    scanf("%d",&Nc);
+    for(int i=0;i<Nc;i++){
+        scanf("%d",&a[i]);
+    }
+    sort(a,a+Nc,cmp);
+    int Np,ans=0,b[100005];
+    scanf("%d",&Np);
+    for(int i=0;i<Np;i++){
+        scanf("%d",&b[i]);
+    }
+    sort(b,b+Np,cmp);
+    for(int i=0;i<100005;i++){
+        if(a[i]<=0||b[i]<=0)break;
+        ans+=a[i]*b[i];
+    }
+    for(int i=0;i<100005;i++){
+        if(a[Nc-1-i]>=0||b[Np-1-i]>=0)break;
+        ans+=a[Nc-1-i]*b[Np-1-i];
+    }
+    cout<<ans;
+}

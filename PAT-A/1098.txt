@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+int b[105];
+void heap(int cur2)
+{
+    swap(b[0],b[cur2]);
+    cur2--;
+    int i=0,j=2*(i+1)-1;
+    while(j<=cur2){
+        if(j+1<=cur2&&b[j+1]>b[j]){
+            j=j+1;
+        }
+        if(b[j]>b[i]){
+            swap(b[j],b[i]);
+            i=j;j=2*(i+1)-1;
+        }else break;
+    }
+}
+int main()
+{
+    int N,a[105],cur1,cur2;
+    cin>>N;
+    for(int i=0;i<N;i++)cin>>a[i];
+    for(int i=0;i<N;i++)cin>>b[i];
+    int p=1;
+    while(p<N&&b[p-1]<=b[p])p++;
+    cur1=p;
+    while(p<N&&a[p]==b[p])p++;
+    if(p==N){
+        cout<<"Insertion Sort"<<endl;
+        sort(b,b+cur1+1);
+        for(int i=0;i<N;i++){
+            if(i!=0)cout<<' ';cout<<b[i];
+        }
+    }else{
+        cout<<"Heap Sort"<<endl;
+        cur2=N-1;
+        while(cur2>=1&&b[cur2-1]<b[cur2])cur2--;
+        heap(cur2);
+        for(int i=0;i<N;i++){
+            if(i!=0)cout<<' ';cout<<b[i];
+        }
+    }
+return 0;
+}
+

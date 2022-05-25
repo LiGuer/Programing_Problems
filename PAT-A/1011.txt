@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+    float wtl[3],sum=1;
+    char dict[4]={"WTL"};
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++)scanf("%f",&wtl[j]);
+        float maxn=0;char maxc;
+        for(int j=0;j<3;j++){
+            if(wtl[j]>maxn){maxn=wtl[j];maxc=dict[j];}
+        }
+        printf("%c ",maxc);
+        sum*=maxn;
+    }
+    sum=(sum*0.65-1)*2;
+    printf("%.2f",sum);
+}

@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<cmath>
+const int MAXN=105;
+bool if_prime(int N)
+{
+    if(N==1||N==0)return false;
+    for(int i=2;i<=sqrt(N);i++){
+        if(N%i==0)return false;
+    }
+    return true;
+}
+int to_D(int N,int D)
+{
+    int a[MAXN]={0},cur=0,ans=0;
+    for(int i=0;i<MAXN;i++){
+        a[i]=N%D;
+        N/=D;
+        if(N==0){cur=i;break;}
+    }
+    for(int i=0;i<=cur;i++){
+        ans=ans*D+a[i];
+    }
+    return ans;
+}
+int main()
+{
+    int N,D;
+    scanf("%d",&N);
+    while(N>=0){
+        scanf("%d",&D);
+        if(!if_prime(N)){
+            cout<<"No"<<endl;scanf("%d",&N);continue;
+        }
+        N=to_D(N,D);
+        if(!if_prime(N)){
+            cout<<"No"<<endl;
+        }
+        else{
+            cout<<"Yes"<<endl;
+        }
+        scanf("%d",&N);
+    }
+}

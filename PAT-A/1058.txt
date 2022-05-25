@@ -1,0 +1,10 @@
+#include<stdio.h>
+int main()
+{
+    long a,b,c,x,y,z;
+    scanf("%ld.%ld.%ld %ld.%ld.%ld",&a,&b,&c,&x,&y,&z);
+    long sum=a*17*29+b*29+c+x*17*29+y*29+z;
+    long ans=sum/(29*17);
+    sum%=(17*29);
+    printf("%ld.%ld.%ld",ans,sum/29,sum%29);
+}

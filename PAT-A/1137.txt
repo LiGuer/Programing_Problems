@@ -1,0 +1,44 @@
+#include<iostream>
+#include<algorithm>
+#include<map>
+#include<vector>
+using namespace std;
+struct node{string id;int p,m,n,s;};
+bool cmp(node a,node b){
+    return a.s!=b.s?a.s>b.s:a.id<b.id;
+}
+int main()
+{
+    int P,M,N,cur=1;
+    vector<node> List;
+    map<string,int> idx;
+    scanf("%d%d%d",&P,&M,&N);
+    for(int i=0;i<P;i++){
+        string t;int a;
+        cin>>t>>a;
+        List.push_back({t,a,-1,-1,0});
+        idx[t]=cur++;
+    }
+    for(int i=0;i<M;i++){
+        string t;int a;
+        cin>>t>>a;
+        if(idx[t]!=0)List[idx[t]-1].m=a;
+    }
+    for(int i=0;i<N;i++){
+        string t;int a;
+        cin>>t>>a;
+        if(idx[t]!=0)List[idx[t]-1].n=a;
+    }
+    for(int i=0;i<List.size();i++){
+        if(List[i].p<200)continue;
+        else if(List[i].m<=List[i].n)List[i].s=List[i].n;
+        else List[i].s=List[i].m*0.4+List[i].n*0.6+0.5;
+    }
+    sort(List.begin(),List.end(),cmp);
+    for(int i=0;i<List.size();i++){
+        if(List[i].s<60)break;
+        cout<<List[i].id;
+        printf(" %d %d %d %d\n",List[i].p,List[i].m,List[i].n,List[i].s);
+    }
+    return 0;
+}

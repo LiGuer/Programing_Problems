@@ -1,0 +1,29 @@
+75% ÕıÈ·
+#include<bits/stdc++.h>
+using namespace std;
+int block[100005]={0};
+int Cut(int a,int b)
+{
+    int minn=min(a,b);
+    for(int i=1;i<=minn;i++){
+        block[i]+=(a/i)*(b/i);
+    }
+    return minn;
+}
+int main()
+{
+    //freopen("C:/Users/ĞÜè÷ºÀ/Desktop/input1.txt","r",stdin);
+    int n,k,ans=0,maxn=0;
+    cin>>n>>k;
+    for(int i=0;i<n;i++){
+        int a,b;
+        cin>>a>>b;
+        int t=Cut(a,b);
+        maxn=maxn>t?maxn:t;
+    }
+    for(int i=maxn;i>=0;i--){
+        if(block[i]>=k){ans=i;break;}
+    }
+    cout<<ans;
+    return 0;
+}

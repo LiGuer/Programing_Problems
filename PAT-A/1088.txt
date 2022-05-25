@@ -1,0 +1,73 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+struct node{long long num,den;};
+long long GCD(long long a,long long b){return b==0?a:GCD(b,a%b);}
+void easy(node& a)
+{
+    long long t=a.den<a.num?GCD(a.num,a.den):GCD(a.den,a.num);
+    a.den/=t,a.num/=t;
+    if(a.den<0){a.den*=-1;a.num*=-1;}
+}
+void print(node a)
+{
+    if(a.den==0){printf("Inf");return;}
+    if(a.num==0){printf("0");return;}
+    long long integ=a.num/a.den;
+    a.num%=a.den;
+    if(integ!=0){
+        printf("%d",integ);
+        if(a.num!=0)printf(" ");
+        if(a.num<0)a.num*=-1;
+    }
+    if(a.num!=0)printf("%lld/%lld",a.num,a.den);
+}
+void printall(node a,node b,node ans,char str)
+{
+    easy(ans);
+    if(a.num>=0)print(a);
+    else {printf("(");print(a);printf(")");}
+    printf(" %c ",str);
+    if(b.num>=0)print(b);
+    else {printf("(");print(b);printf(")");}
+    printf(" = ");
+    if(ans.num>=0)print(ans);
+    else {printf("(");print(ans);printf(")");}
+    printf("\n");
+}
+void Add(node a,node b)
+{
+    node ans;
+    ans.den=a.den*b.den;
+    ans.den/=a.den<b.den?GCD(b.den,a.den):GCD(a.den,b.den);
+    ans.num=a.num*(ans.den/a.den)+b.num*(ans.den/b.den);
+    printall(a,b,ans,'+');
+}
+void Minus(node a,node b)
+{
+    node ans;
+    ans.den=a.den*b.den;
+    ans.den/=a.den<b.den?GCD(b.den,a.den):GCD(a.den,b.den);
+    ans.num=a.num*(ans.den/a.den)-b.num*(ans.den/b.den);
+    printall(a,b,ans,'-');
+}
+void Mult(node a,node b)
+{
+    node ans={a.num*b.num,a.den*b.den};
+    printall(a,b,ans,'*');
+}
+void Devided(node a,node b)
+{
+    node ans{a.num*b.den,a.den*b.num};
+    printall(a,b,ans,'/');
+}
+int main()
+{
+    node a,b;
+    scanf("%lld/%lld",&a.num,&a.den);
+    easy(a);
+    scanf("%lld/%lld",&b.num,&b.den);
+    easy(b);
+    Add(a,b);Minus(a,b);Mult(a,b);Devided(a,b);
+    return 0;
+}

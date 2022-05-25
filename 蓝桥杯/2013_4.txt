@@ -1,0 +1,27 @@
+9088   ¶Ô
+¸½.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int fun(int a)
+{
+	int book[10]={0,1,2,3,4,5,9,7,8,6};
+	int ans=0;
+	while(a>0){
+		int t=a%10;
+		if(t==3||t==4||t==7){return -9999;}
+		ans=ans*10+book[t];
+		a/=10;
+	}
+	return ans;
+}
+int main()
+{
+	for(int i=1000;i<=9999;i++){
+		for(int j=1000;j<=9999;j++){
+			int a=fun(i),b=fun(j);
+			int t=a+b-i-j;
+			if(t==558)cout<<i<<' '<<j<<' '<<a-i<<' '<<b-j<<endl;
+		}
+	}
+}

@@ -1,0 +1,29 @@
+³¬Ê±
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#include<vector>
+vector<int> a;
+int main()
+{
+    //freopen("C:/Users/ÐÜè÷ºÀ/Desktop/input.txt","r",stdin);
+    ios::sync_with_stdio(false);
+    ll A,B,C,m;
+    cin>>A>>B>>C>>m;
+    ll t=A*B*C,ans=0;
+    a.resize(t);
+    for(int i=0;i<t;i++)cin>>a[i];
+    while(m--){ans++;
+        int Al,Ar,Bl,Br,Cl,Cr,h;
+        cin>>Al>>Ar>>Bl>>Br>>Cl>>Cr>>h;
+        for(int i=Al;i<=Ar;i++)
+            for(int j=Bl;j<=Br;j++)
+                for(int k=Cl;k<=Cr;k++){
+                    a[((i-1)*B+(j-1))*C+k-1]-=h;
+                }
+        int flag=0;
+        for(int i=0;i<t;i++){
+            if(a[i]<0){cout<<ans;flag=1;break;}
+        }if(flag)break;
+    }
+}

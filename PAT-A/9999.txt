@@ -1,0 +1,93 @@
+stu[i].score[0] = (stu[i].score[1] + stu[i].score[2] + stu[i].score[3]) / 3.0 + 0.5;   四舍五入
+
+return strcmp(a.name, b.name) <= 0;    char字符串排序cmp
+
+c[5]=BOB9/0   注意末尾标志"/0"
+
+for(set<int>::iterator it=sets[s1].begin();it!=sets[s1].end();it++){
+            if(sets[s2].find(*it)!=sets[s2].end())com++;
+
+for(map<int,int>::iterator it=pixel.begin();it!=pixel.end();it++){
+        if(it->second>=o)cout<<it->first;
+
+
+注意全局变量。
+
+reverse(s.begin(), s.end());  反转字符串
+
+ans=ans.substr(0,j)   复制字符串ans从0位开始的j个字符到ans
+
+getline(cin,string)  会输入上一行的最后的endl字符导致出错，要挑去这个字符，比如scanf("%d\n",N);
+
+不是按照字典序排列就可以的，必须保证两个字符串构成的数字是最小的才行，所以cmp函数写成return a + b < b + a;的形式，保证它排列按照能够组成的最小数字的形式排列。
+
+因为字符串可能前面有0，这些要移除掉（用s.erase(s.begin())就可以了～嗯～string如此神奇～～）。
+
+map<string, set<int> > title, author, key, pub, year;
+void query(map<string, set<int> > &m, string &str) {
+    if(m.find(str) != m.end()) {
+        for(auto it = m[str].begin(); it != m[str].end(); it++)
+            printf("%07d\n", *it);
+    } else
+        cout << "Not Found\n";
+}对除了id之外的其他信息都建立一个map<string, set<int>>，把相应的id插入对应搜索词的map的集合里面，形成一个信息对应一个集合，集合里面是复合条件的书的id。
+
+因为对于输入的关键词（可以重复，算是书本对应的tag标签吧～）没有给定关键词的个数，可以使用while(cin >> s)并且判断c = getchar()，c是否等于\n，如果是再退出循环～
+
+s.insert(0, 4 - s.length(), '0');填补前导0
+
+vector<int> a, b; 
+a.resize(n + 1), b.resize(n + 1);提前预设vector存储大小
+
+int GCD(int a,int b){return b==0?a:GCD(b,a%b);}辗转相除法
+且应满足a>b。
+
+最小公倍数 a*b/GCD(a,b)
+
+5
+2/5 4/15 1/30 -2/60 8/3 
+的输入scanf("%lld/%lld",&temp.num,&temp.den);就行。
+
+stoi（）不一定能转换long long
+
+map<string,int> car;
+car[record[i].name]+=record[i+1].time-record[i].time;
+map初始化时默认为0，可直接第一次便用+=
+
+for(map<string,int>::iterator it=car.begin();it!=car.end();it++){
+        if(it->second>maxn){
+            maxn=it->second;
+            ans.push_back(it->first);
+        }
+}map的遍历，->first可以取得key值，it->second可以取得value值
+map自动按照key值按升序排列
+
+
+transform(str.begin(),str.end(),str.begin(),::tolower);
+    
+cout<<"转化为小写后为："<<str<<endl;
+    
+transform(str.begin(),str.end(),str.begin(),::toupper);
+    
+cout<<"转化为大写后为："<<str<<endl;
+
+
+可以把map数据转到struct node中再排序等工作
+
+#include<unordered_map>
+
+for(auto it = cnt.begin(); it != cnt.end(); it++)
+
+——unordered_map<int,int> pos;
+——for(int i=1;i<=N;i++){
+        scanf("%d",&in[i]);
+        pos[in[i]]=i;
+    }
+——int root=pre[pl],cur=pos[root],ans;
+注意pos[]真是太妙了
+
+若在结构体内部提前初始化，则在定义时无法直接初始化。
+
+注意：
+1. 0000 和 -0000对于int来说都是0，对于部分题目可能会因此遗漏信息。
+2. 输出是注意输出格式，比如0013，要前导0，这都忘了...该打...

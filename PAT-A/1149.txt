@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#define MAXN 1005
+#include<vector>
+vector<int> book[100000];
+bool check(int a,int b)
+{
+    for(int i=0;i<book[a].size();i++){
+        if(book[a][i]==b)return true;
+    }
+    return false;
+}
+int main()
+{
+    int N,M;
+    cin>>N>>M;
+    for(int i=0;i<N;i++){
+        int a,b;
+        cin>>a>>b;
+        book[a].push_back(b);
+        book[b].push_back(a);
+    }
+    for(int i=0;i<M;i++){
+        int K,a[MAXN],o=1;
+        cin>>K;
+        for(int j=0;j<K;j++){
+            cin>>a[j];
+        }
+        for(int j=0;j<K;j++){
+            for(int k=0;k<K;k++){
+                if(check(a[j],a[k])){o=0;break;};
+            }
+            if(o==0)break;
+        }
+        if(o)cout<<"Yes"<<endl;
+        else cout<<"No"<<endl;
+    }
+    return 0;
+}

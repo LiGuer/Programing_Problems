@@ -1,0 +1,47 @@
+Œ¥»∑»œ
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int fun2(int a)
+{
+	int t=0;
+	while(a/10!=0){
+		while(a>0){
+			t+=a%10;
+			a/=10;
+		}
+		a=t;t=0;
+	}
+	return a;
+}
+void fun(string s)
+{
+	string str[100];
+	int cur=0;
+	while(s!=""){
+		str[cur]=s.substr(0,6);
+		s.erase(0,6);
+		cur++;
+	}
+	int a[7]={0};
+	for(int i=0;i<cur;i++){
+		for(int j=0;j<6;j++){
+			if(str[i][j]>='a'&&str[i][j]<='z'){
+				a[j]+=str[i][j];
+			}
+		}
+	}
+	for(int i=0;i<6;i++)a[i]=fun2(a[i]); 
+	for(int i=0;i<6;i++)cout<<a[i];cout<<endl;
+}
+int main()
+{
+	int n;
+	cin>>n;
+	while(n--){
+		string s;
+		cin>>s;
+		fun(s);
+	}
+	return 0;
+}

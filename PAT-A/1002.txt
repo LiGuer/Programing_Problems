@@ -1,0 +1,30 @@
+#include<stdio.h>
+#define MAXN 100000
+int main()
+{
+    int K;float poly[MAXN]={0};
+    scanf("%d",&K);
+    while(K--){
+        int n;float a;
+        scanf("%d%f",&n,&a);
+        poly[n]+=a;
+    }
+    scanf("%d",&K);
+    while(K--){
+        int n;float a;
+        scanf("%d%f",&n,&a);
+        poly[n]+=a;
+    }
+    int sum=0;
+    for(int i=1000;i>=0;i--){
+        if(poly[i]!=0){a
+            sum++;
+        }
+    }
+    printf("%d",sum);
+    for(int i=1000;i>=0;i--){
+        if(poly[i]!=0){
+            printf(" %d %.1f",i,poly[i]);
+        }
+    }
+}

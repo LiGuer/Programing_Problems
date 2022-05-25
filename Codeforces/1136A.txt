@@ -1,0 +1,24 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+struct node{int st,ed;};
+int main()
+{
+    int n;
+    cin>>n;
+    vector<node> chapter;
+    for(int i=0;i<n;i++){
+        int st,ed;
+        cin>>st>>ed;
+        chapter.push_back({st,ed});
+    }
+    int k,ans=n;
+    cin>>k;
+    for(int i=0;i<chapter.size();i++){
+        if(k>=chapter[i].st&&k<=chapter[i].ed){
+            ans-=i;break;
+        }
+    }
+    cout<<ans;
+    return 0;
+}

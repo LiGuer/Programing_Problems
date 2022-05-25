@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<string>
+int main()
+{
+    int N;
+    string a,b,as,bs;
+    cin>>N>>a>>b;
+    int cur1=a.length(),cur2=b.length();
+    for(int i=0;i<a.length();i++){
+        if(a[i]=='.'){cur1=i;break;}
+    }
+    for(int i=0;i<b.length();i++){
+        if(b[i]=='.'){cur2=i;break;}
+    }
+    int p=0,q=0;
+    while(a[p]=='0'||a[p]=='.')p++;
+    while(b[q]=='0'||b[q]=='.')q++;
+    if(p<=cur1)cur1-=p;
+    else cur1-=p-1;
+    if(q<=cur2)cur2-=q;
+    else cur2-=q-1;
+    if(p==a.length())cur1=0;
+    if(q==b.length())cur2=0;
+    int N1=N;
+    for(int i=p;i<p+N1;i++){
+        if(a[i]!='.'&&i<a.length())as+=a[i];
+        else if(i>=a.length())as+='0';
+        else N1++;
+    }N1=N;
+    for(int i=q;i<q+N1;i++){
+        if(b[i]!='.'&&i<b.length())bs+=b[i];
+        else if(i>=b.length())bs+='0';
+        else N1++;
+    }
+    if(cur1==cur2&&as==bs){
+        printf("YES 0.");cout<<as;
+        printf("*10^%d",cur1);
+    }
+    else{
+        printf("NO 0.");cout<<as;
+        printf("*10^%d 0.",cur1);cout<<bs;
+        printf("*10^%d",cur2);
+    }
+    return 0;
+}

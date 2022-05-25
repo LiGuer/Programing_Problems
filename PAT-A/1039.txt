@@ -1,0 +1,44 @@
+#include<iostream>
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+#define MAXN 26*26*26*10+5
+int to_id(char name[])
+{
+    int id=0;
+    for(int i=0;i<3;i++)
+        id=id*26+name[i]-'A';
+    id=id*10+name[3]-'0';
+    return id;
+}
+vector<int> stu[MAXN];
+
+int main()
+{
+    int N,K;
+    scanf("%d%d",&N,&K);
+    for(int i=0;i<K;i++){
+        int cour,num;
+        scanf("%d%d",&cour,&num);
+        for(int j=0;j<num;j++){
+            char name[5];
+            scanf("%s",&name);
+            int id=to_id(name);
+            stu[id].push_back(cour);
+        }
+    }
+    for(int i=0;i<N;i++)
+    {
+        char name[5];
+        scanf("%s",&name);
+        int id=to_id(name);
+        printf("%s %d",name,stu[id].size());
+        sort(stu[id].begin(),stu[id].end());
+        for(int j=0;j<stu[id].size();j++){
+            if(j!=stu[id].size())printf("%c",' ');
+            printf("%d",stu[id][j]);
+        }
+        cout<<endl;
+    }
+}

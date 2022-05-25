@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+vector<int> graph[1005];
+int is_end(int book[],int N,int c)
+{
+    for(int i=1;i<=N;i++){
+        if(i!=c&&book[i]!=1)return i;
+    }
+    return -1;
+}
+void DFS(int book[],int a,int c)
+{
+    book[a]=1;
+    for(int i=0;i<graph[a].size();i++){
+        if(graph[a][i]!=c&&book[graph[a][i]]==0)
+            DFS(book,graph[a][i],c);
+    }
+}
+int main()
+{
+    int N,M,K;
+    scanf("%d %d %d",&N,&M,&K);
+    for(int i=0;i<M;i++){
+        int c1,c2;
+        scanf("%d %d",&c1,&c2);
+        graph[c1].push_back(c2);
+        graph[c2].push_back(c1);
+        }
+    for(int i=0;i<K;i++){
+        int c,book[1005]={0},ans=0;
+        scanf("%d",&c);
+        while(1){
+            int temp=is_end(book,N,c);
+            if(temp==-1)break;
+            DFS(book,temp,c);
+            ans++;
+        }
+        cout<<ans-1<<endl;
+    }
+    return 0;
+}

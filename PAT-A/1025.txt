@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#define MAXN 100000
+
+struct node
+{
+    string id;
+    int rank[3];
+    int score;
+}testee[MAXN];
+bool cmp(node a,node b)
+{
+    if(a.score != b.score)return a.score > b.score;
+    return a.id < b.id;
+}
+
+int main()
+{
+    int N;
+    cin>>N;
+    int cur=0;
+    for(int i=0;i<N;i++)
+    {
+        int M;
+        cin>>M;
+        for(int j=0;j<M;j++){
+            cin>>testee[j+cur].id>>testee[j+cur].score;
+            testee[j+cur].rank[1]=i+1;
+        }
+        sort(testee+cur,testee+M+cur,cmp);
+        for(int j=0;j<M;j++){
+                testee[j+cur].rank[2]=j+1;
+                if(j&&testee[j+cur].score==testee[j+cur-1].score)testee[j+cur].rank[2]=testee[j+cur-1].rank[2];
+        }
+        cur+=M;
+    }
+    sort(testee,testee+cur,cmp);
+    for(int j=0;j<cur;j++){
+        testee[j].rank[0]=j+1;
+        if(j&&testee[j].score==testee[j-1].score)testee[j].rank[0]=testee[j-1].rank[0];
+    }
+    cout<<cur<<endl;
+    for(int j=0;j<cur;j++){
+        cout<<testee[j].id<<' '<<testee[j].rank[0]<<' '<<testee[j].rank[1]<<' '<<testee[j].rank[2]<<endl;
+    }
+}

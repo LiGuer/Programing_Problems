@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#define MAXN 10005
+int main()
+{
+    int K,M,N,a[MAXN],b[MAXN],dp[MAXN],ans=0;;
+    fill(a,a+MAXN,-1);
+    scanf("%d %d",&K,&M);
+    for(int i=0;i<M;i++){
+        int t;
+        scanf("%d",&t);
+        a[t]=i;
+    }
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        scanf("%d",&b[i]);
+        if(a[b[i]]!=-1)dp[i]=1;
+    }
+    for(int i=1;i<N;i++){
+        for(int j=0;j<i;j++){
+            if(a[b[i]]>=a[b[j]]&&dp[j]+1>dp[i]&&a[b[j]]!=-1){
+                dp[i]=dp[j]+1;
+            }
+        }
+    }
+    for(int i=0;i<N;i++)if(ans<dp[i])ans=dp[i];
+    printf("%d",ans);
+    return 0;
+}

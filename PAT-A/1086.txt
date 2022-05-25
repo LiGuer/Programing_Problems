@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<stack>
+stack<int> sta;
+vector<int> pre,in,value;
+int o=1,cur=0;
+void fun(int pl,int pr,int il,int ir)
+{
+    if(pl>pr||il>ir)return;
+    int temp=pre[pl],t;
+    for(int i=il;i<=ir;i++){
+        if(temp==in[i])t=i;
+    }
+    fun(pl+1,pl+t-il,il,t-1);
+    fun(pl+t-il+1,pr,t+1,ir);
+    if(o==1){cout<<value[temp];o=0;}
+    else cout<<' '<<value[temp];
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    string temp;
+    while(cin>>temp){
+        if(temp=="Push"){
+            int t;
+            scanf("%d",&t);
+            value.push_back(t);
+            sta.push(cur);
+            pre.push_back(cur++);
+        }else{
+            int t=sta.top();
+            in.push_back(t);
+            sta.pop();
+        }
+    }
+    fun(0,N-1,0,N-1);
+    return 0;
+}

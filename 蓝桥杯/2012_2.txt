@@ -1,0 +1,29 @@
+¶Ô
+21978
+¸½.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+bool judge(int a,int b)
+{
+	for(int i=0;i<5;i++){
+		int ta=a%10;a/=10;
+		int key=1;for(int j=0;j<4-i;j++)key*=10;
+		int tb=b/key;b%=key;
+		if(ta!=tb)return false;
+	}
+	return true;
+}
+int main()
+{
+	int a[10]={0,1,2,3,4,5,6,7,8,9};
+	while(next_permutation(a,a+10)){
+		int ta=0;for(int i=0;i<5;i++)ta=ta*10+a[i];
+		if(ta<10000)continue;
+		for(int i=1;i<=9;i++){
+			int t=ta*i;
+			if(ta<10000||ta>99999)continue;
+			if(judge(ta,t))cout<<ta<<endl;
+		}
+	}
+} 

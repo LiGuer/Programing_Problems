@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+    int RGB[3];
+    for(int i=0;i<3;i++){
+        scanf("%d",&RGB[i]);
+    }
+    printf("#");
+    int ans[2];
+    for(int i=0;i<3;i++){
+        for(int j=0;j<2;j++){
+            ans[j]=RGB[i]%13;
+            RGB[i]/=13;
+        }
+        for(int j=1;j>=0;j--){
+            if(ans[j]<10)printf("%d",ans[j]);
+            else printf("%c",ans[j]-10+'A');
+        }
+    }
+    return 0;
+}

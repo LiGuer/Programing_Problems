@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+#include<string>
+bool cmp(char a,char b){return a>b;}
+int main()
+{
+    string a,b;
+    int t=1;
+    cin>>a;
+    a.insert(0,4-a.length(),'0');
+    b=a;
+    while(t!=6174&&t!=0){
+        sort(a.begin(),a.end(),cmp);
+        sort(b.begin(),b.end());
+        cout<<a<<" - "<<b<<" = ";
+        t=stoi(a)-stoi(b);
+        a=to_string(t);
+        a.insert(0,4-a.length(),'0');
+        cout<<a<<endl;
+        b=a;
+    }
+}

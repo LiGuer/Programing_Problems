@@ -1,0 +1,41 @@
+未确定   个人认为没问题
+#include<bits/stdc++.h>
+using namespace std;
+#include<vector>
+#define ll long long
+vector<double> a;
+int n,S;
+double ans,mean;
+void Count(int cur)
+{
+    double meantemp=1.0*S/(n-cur);//cout<<S<<' '<<cur<<' '<<meantemp<<endl;
+    if(a[cur]>=meantemp){
+        ans+=(meantemp-mean)*(meantemp-mean)*(n-cur);
+        return;
+    }
+    for(int i=0;i<n;i++){
+        if(a[i]<=meantemp){
+            ans+=(a[i]-mean)*(a[i]-mean);
+            S-=a[i];cur++;
+        }
+        else break;
+    }
+    if(cur<=n-1)Count(cur);
+    return;
+}
+int main()
+{
+    //freopen("C:/Users/熊梓豪/Desktop/input10.txt","r",stdin);
+    ios::sync_with_stdio(false);
+    cin>>n>>S;
+    a.resize(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    sort(a.begin(),a.end());
+    mean=1.0*S/n;//cout<<mean<<endl;
+    Count(0);
+    ans=sqrt(ans/n);
+    printf("%.4f",ans);
+    return 0;
+}

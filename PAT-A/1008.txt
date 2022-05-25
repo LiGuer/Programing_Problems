@@ -1,0 +1,18 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+const int MAXN=105;
+int main()
+{
+    int a[MAXN],N,ans=0,cur=0;
+    scanf("%d",&N);
+    while(N--){
+        int t;
+        scanf("%d",&t);
+        if(t>cur)ans+=(t-cur)*6;
+        else if(t<cur)ans+=(cur-t)*4;
+        cur=t;
+        ans+=5;
+    }
+    cout<<ans;
+}

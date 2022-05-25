@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<stdio.h>
+vector<int> pre,post;
+bool isMirror=false;
+void getpost(int root,int tail)
+{
+    if(root>tail)return;
+    int i=root+1,j=tail;
+    if(!isMirror){
+        while(i<=tail&&pre[root]>pre[i])i++;
+        while(j>root&&pre[root]<=pre[j])j--;
+    }else{
+        while(i<=tail&&pre[root]<=pre[i])i++;
+        while(j>root&&pre[root]>pre[j])j--;
+    }
+    if(i-j!=1)return;
+    getpost(root+1,j);
+    getpost(i,tail);
+    post.push_back(pre[root]);
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    pre.resize(N);
+    for(int i=0;i<N;i++){
+        scanf("%d",&pre[i]);
+    }
+    getpost(0,N-1);
+    if(post.size()!=N){
+        isMirror=true;
+        post.clear();
+        getpost(0,N-1);
+    }
+    if(post.size()==N){
+        printf("YES\n");
+        for(int i=0;i<post.size();i++)
+            if(i==0)cout<<post[i];
+            else cout<<' '<<post[i];
+        }else{
+            printf("NO");
+        }
+}

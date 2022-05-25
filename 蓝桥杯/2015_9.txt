@@ -1,0 +1,160 @@
+对
+动归+滚动数组（内存搞定极低，时间较快）
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#include<vector>
+int dp[2][6]={0};
+vector<int> book[7];
+int op(int a)
+{
+	switch(a){
+		case 1:return 4;
+		case 2:return 5;
+		case 3:return 6;
+		case 4:return 1;
+		case 5:return 2;
+		case 6:return 3;
+	}
+}
+int judge(int a,int b)
+{
+	for(int j=0;j<book[a].size();j++){
+		if(book[a][j]==b)return false;
+	}
+	return true;
+}
+int main()
+{
+	int n,m,ans=0;
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+		int a,b;
+		cin>>a>>b;
+		book[a].push_back(b);
+		book[b].push_back(a);
+	}
+	for(int i=0;i<6;i++)dp[0][i]=1;
+	for(int i=1;i<n;i++){
+		for(int j=0;j<6;j++){
+			long long t=0;
+			for(int k=0;k<6;k++){
+				if(judge(op(j+1),k+1))t+=dp[0][k];
+			}
+			dp[1][j]=t%1000000007;
+		} 
+		for(int j=0;j<6;j++)cout<<dp[0][j]<<' ';cout<<endl;
+		for(int j=0;j<6;j++)dp[0][j]=dp[1][j];
+	}
+	for(int i=0;i<6;i++){ans+=dp[1][i];ans%=1000000007;}
+	for(int i=0;i<n;i++){
+		ans*=2;ans%=1000000007;
+		ans*=2;ans%=1000000007;
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+
+动态规划解法（内存高，时间较快）：
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#include<vector>
+#define MAXN 10000000
+int dp[MAXN][6]={0};
+vector<int> book[7];
+int op(int a)
+{
+	switch(a){
+		case 1:return 4;
+		case 2:return 5;
+		case 3:return 6;
+		case 4:return 1;
+		case 5:return 2;
+		case 6:return 3;
+	}
+}
+int judge(int a,int b)
+{
+	for(int j=0;j<book[a].size();j++){
+		if(book[a][j]==b)return false;
+	}
+	return true;
+}
+int main()
+{
+	int n,m,ans=0;
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+		int a,b;
+		cin>>a>>b;
+		book[a].push_back(b);
+		book[b].push_back(a);
+	}
+	for(int i=0;i<6;i++)dp[0][i]=1;
+	for(int i=1;i<n;i++){
+		for(int j=0;j<6;j++){
+			long long t=0;
+			for(int k=0;k<6;k++){
+				if(judge(op(j+1),k+1))t+=dp[i-1][k];
+			}
+			dp[i][j]=t%1000000007;
+		} 
+	}
+	for(int i=0;i<6;i++){ans+=dp[n-1][i];ans%=1000000007;}
+	for(int i=0;i<n;i++){
+		ans*=2;ans%=1000000007;
+		ans*=2;ans%=1000000007;
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+
+纯递归解法（慢）：
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#include<vector>
+#include<cmath>
+int n,m,ans=0;
+string mode[6]={"14","25","36","41","52","63"};
+vector<int> book[7];
+bool judge(string a)
+{
+	for(int i=1;i<a.length()-1;i+=2){
+		int t1=a[i]-'0',t2=a[i+1]-'0';
+		for(int j=0;j<book[t1].size();j++){
+			if(book[t1][j]==t2)return false;
+		}
+	}
+	return true;
+}
+void fun(string a,int k)
+{
+	if(k==n){
+		if(judge(a)){ans++;ans%=1000000007;}
+		return;
+	}
+	for(int i=0;i<6;i++){
+		a+=mode[i];
+		fun(a,k+1);
+		a=a.substr(0,a.length()-2);
+	}
+}
+int main()
+{
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+		int a,b;
+		cin>>a>>b;
+		book[a].push_back(b);
+		book[b].push_back(a);
+	}
+	string a;
+	fun(a,0);
+	for(int i=0;i<n;i++){
+		ans*=4;ans%=1000000007;
+	}
+	cout<<ans<<endl;
+	return 0;
+}

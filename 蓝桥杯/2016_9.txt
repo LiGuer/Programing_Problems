@@ -1,0 +1,52 @@
+对
+最长公共子序列（动态规划）解法：
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#define MAXN 1005
+int dp[MAXN][MAXN]={0};
+int main()
+{
+	string s;
+	cin>>s;
+	string st=s;
+	reverse(st.begin(),st.end());
+	int len=s.length();
+	for(int i=1;i<=len;i++){
+		for(int j=1;j<=len;j++){
+			if(s[i-1]==st[j-1])dp[i][j]=dp[i-1][j-1]+1;
+			else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+		}
+	}
+	int ans=len-dp[len][len];
+	cout<<ans;
+	return 0;
+}
+
+递归解法：（复杂度高）
+#include<iostream>
+#include<algorithm>
+using namespace std;
+string s;
+int minn;
+void fun(int l,int r,int n)
+{
+	if(l>=r){
+		minn=n<minn?n:minn;
+		return;
+	}
+	if(s[l]==s[r])fun(l+1,r-1,n);
+	else{
+		fun(l,r-1,n+1);
+		fun(l+1,r,n+1);
+	}
+}
+int main()
+{
+	cin>>s;
+	minn=s.length();
+	int n=0;
+	fun(0,minn-1,0);
+	cout<<minn;
+	return 0;
+}

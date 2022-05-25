@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<cmath>
+int main()
+{
+    string N,a,b;
+    cin>>N;
+    if(N[0]=='-')cout<<N[0];
+    N.erase(N.begin());
+    N.erase(N.begin()+1);
+    int cur=0;
+    while(N[cur]!='E')cur++;
+    a=N.substr(0,cur);
+    b=N.substr(cur+1,N.length()-cur);
+    int bi=stoi(b);
+    if(bi<0){
+        printf("0.");
+        for(int i=-1;i>bi;i--)printf("0");
+        cout<<a;
+    }
+    else{
+        if(bi+1<a.length())a.insert(bi+1,1,'.');
+        cout<<a;
+        for(int i=1;i<bi-cur+2;i++)printf("0");
+    }
+    return 0;
+}

@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<queue>
+vector<int> graph[1005];
+struct node{int id,layer;};
+int N,L,K;
+int BFS(int s)
+{
+    int ans=0;
+    bool book[1005]={false};
+    queue<node> Q;
+    Q.push({s,0});book[s]=true;
+    while(!Q.empty()){
+        node temp=Q.front();
+        Q.pop();
+        if(temp.layer<=L)ans++;
+        else break;
+        for(int i=0;i<graph[temp.id].size();i++){
+            if(!book[graph[temp.id][i]])Q.push({graph[temp.id][i],temp.layer+1});
+            book[graph[temp.id][i]]=true;
+        }
+    }
+    return ans;
+}
+int main()
+{
+    scanf("%d%d",&N,&L);
+    for(int i=0;i<N;i++){
+        int t;
+        scanf("%d",&t);
+        while(t--){
+            int temp;
+            scanf("%d",&temp);
+            graph[temp].push_back(i+1);
+        }
+    }
+    scanf("%d",&K);
+    for(int i=0;i<K;i++){
+        int temp;
+        scanf("%d",&temp);
+        int ans=BFS(temp);
+        printf("%d\n",ans-1);
+    }
+    return 0;
+}

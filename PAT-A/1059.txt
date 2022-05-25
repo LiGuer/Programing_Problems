@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<string.h>
+#include<cmath>
+#define MAXN 100000
+int prime[MAXN];
+bool is_prime(int a)
+{
+    for(int i=2;i<=sqrt(a);i++)
+        if(a%i==0)return false;
+    return true;
+}
+
+int main()
+{
+    long N;
+    cin>>N;
+    int cur=0;
+    for(int i=2;i<500000;i++)
+    {
+        if(is_prime(i)){
+            prime[cur]=i;
+            cur++;
+        }
+    }
+    int ex[MAXN]={0};
+    cout<<N<<'=';
+    if(N==0||N==1)cout<<N;
+    else {
+    while(N!=1){
+        for(int i=0;i<cur;i++){
+            if(N%prime[i]==0){
+                N/=prime[i];
+                ex[i]++;
+            }
+        }
+    }
+    int o=0;
+    for(int i=0;i<cur;i++){
+        if(ex[i]){
+        if(o)cout<<'*';o=1;
+        if(ex[i]>1)cout<<prime[i]<<'^'<<ex[i];
+        else if(ex[i]==1)cout<<prime[i];
+        }
+    }
+    }
+}

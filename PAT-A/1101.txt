@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+#define MAXN 100005
+int main()
+{
+    int N,a[MAXN],b[MAXN],maxn=-99,ans[MAXN];
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){scanf("%d",&a[i]);b[i]=a[i];}
+    sort(a,a+N);
+    int cur=0;
+    for(int i=0;i<N;i++){
+        if(a[i]==b[i]&&b[i]>maxn)ans[cur++]=a[i];
+        if(b[i]>maxn)maxn=b[i];
+    }
+    printf("%d\n",cur);
+    for(int i=0;i<cur;i++){
+        if(i!=0)printf(" %d",ans[i]);
+        else printf("%d",ans[i]);
+    }printf("\n");
+    return 0;
+}

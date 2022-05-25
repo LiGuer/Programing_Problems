@@ -1,0 +1,35 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    string str;
+    int temp[265]={0};
+    cin>>str;
+    for(int i=0;i<str.length();i++){
+        temp[str[i]]++;
+    }
+    cin>>str;
+    int o=1;
+    for(int i=0;i<str.length();i++){
+        temp[str[i]]--;
+        if(temp[str[i]]<0){o=0;}
+    }
+    int sum=0;
+    if(o==1){
+        cout<<"Yes ";
+        for(int j=0;j<265;j++){
+            sum+=temp[j];
+        }
+        cout<<sum;
+    }
+    else if(o==0){
+        cout<<"No ";
+        for(int j=0;j<265;j++){
+            if(temp[j]<0){
+                sum-=temp[j];
+            }
+        }
+        cout<<sum;
+    }
+}

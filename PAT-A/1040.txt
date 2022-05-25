@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#include<string>
+#include<algorithm>
+int main()
+{
+    string s,s1,s2;
+    getline(cin,s);
+    int ans=1;
+    for(int i=0;i<s.length();i++){
+        for(int j=1;j<s.length()-i;j++){
+            s1=s.substr(i,j);
+            s2=s.substr(i+j,j);
+            reverse(s2.begin(),s2.end());
+            if(s1==s2&&2*j>ans)ans=2*j;
+            if(i+j+j+1>s.length())continue;
+            s2=s.substr(i+j+1,j);
+            reverse(s2.begin(),s2.end());
+            if(s1==s2&&2*j+1>ans)ans=2*j+1;
+        }
+    }
+    cout<<ans;
+    return 0;
+}

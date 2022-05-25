@@ -1,0 +1,21 @@
+万能头文件  #include<bits/stdc++.h>
+——包含了目前c++所包含的所有头文件，少部分OJ平台不兼容性。
+
+
+ios::sync_with_stdio(false);
+cin.tie(0);
+cout.tie(0);
+——cin，cout速度慢，是因为先把要输出的东西存入缓冲区，再输出，导致效率降低，而这句代码ios_base::sync_with_stdio(false)可以来打消iostream的输入输出缓存，以节省许多时间，使之效率与scanf与printf相差无几
+
+
+// freopen("input.txt", "r", stdin);
+——自己测试代码时，可直接用文件读入，即不用麻烦的复制粘贴，也可以准确地看到程序的运行时间。
+
+cout.flush();
+——流可能有缓存，调用这个函数，无条件地将缓冲区中的输出信息送显示器，通常就是强制写文件，避免数据被缓存可能引起的数据丢失。
+
+
+typedef long long ll;
+——虽然我觉得这个不好看，但好像用的人挺多？
+
+const double PI = 4 * atan(1);

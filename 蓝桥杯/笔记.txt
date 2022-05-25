@@ -1,0 +1,105 @@
+要注意中间过程会不会超出整型。interesting变量运算，就算他本身不超过int，但计算储存值若超过，也会崩，而不是赋到long long的ans里。
+
+dev-cpp里，输出long long要用printf("%I64d",ans); cout<<ans;也行。
+
+输出字符矩阵最好用for(for)，直接字符串输出可能有问题。
+
+dev-cpp不支持long double。
+
+一定要看清楚题目的每一个字！！！每一个条件，每一个限制，每一个范围，每一个特殊。
+
+
+【互质问题】
+“定理1：大于1的两个相邻的自然数必定互质 。 
+定理2：两个数的最小公倍数在最大的情况就是当两个数互质的时候，他们的最小公倍数就是这两个数的乘积。”
+“n为奇数 此时，n*(n-1)*(n-2)中，n，n-2为奇数，n-1为偶数，即肯定不存在公因数2，因为这三个连续的数变化范围不超过3，所以就算有一个数是3的倍数，也不会存在第二个数是3的倍数，即这三个数字都是互质的。如：9，8，7
+
+n为偶数 此时，n*(n-1)*(n-2)中，有两个偶数，即存在公因数2，也就是说最小公倍数要除2了，就不是最大了的。所以不能存在 偶 X 奇 X 偶 这种情况，就让(n-2)变为(n-3)，大的数尽量不变嘛，这时候呢，又恢复到了 奇 X 偶 X 奇 的情况。”
+——互质有一个思考方向，|A和B约k，则A、B之间必相隔k的倍数。|所以相近的数字，可以很好排除掉大部分可能约数。
+
+三数最大公约问题可以考虑把最大数也后移一位(n-1)*(n-2)*(n-3)，计算了一下，比n*(n-1)*(n-5)或1/2*n*(n-1)*(n-2)结果都好，我怎么怎么蠢连这个都没想到呢【哭】;
+
+如果觉得数据可能溢出，可以用int和long long都试一试，以免被看似正确的int欺骗【哭】。
+
+蓝桥有些题目的坑好像设计地特别让人匪夷所思，输入n个数。要特判输入n为负数的情景【黑人问号？】，题目里面也没说，以前也没遇到过。。。
+
+dev里面auto不能直接指代迭代器（真麻烦）
+
+
+一定要保证提交的代码里已经删去中间测试输出的内容！
+
+全排列暴力解法（next_permutation（））
+——next_permutation函数将按字母表顺序生成给定序列的下一个较大的排列，直到整个序列为降序为止。
+——prev_permutation函数与之相反，是生成给定序列的上一个较小的排列。二者原理相同，仅遍例顺序相反。
+若为4,3,2,1.next_permutation的返回值即为false，因为没有下一个排列。但是经过一次函数调用之后会变为1,2,3,4.
+——do...while (next_permutation(a,a+12))
+for(i=0; i<32; i++) printf("%d", (x>>(31-i))&1);
+int n = 1, cnt = 0;
+    for (int i = 1; i <= 10; i++)
+        n = n * i;
+    for (int i = 1; i < n; i++) {
+        next_permutation(a, a+10);
+        if (func() == true)
+            cnt++;
+    }
+
+
+公共最长子序列LCS（动态规划）
+——http://www.cnblogs.com/ranjiewen/p/5559490.html
+for(int i=1;i<=s.length();i++){
+	for(int j=1;j<=len;j++){
+		if(s[i-1]==st[j-1])dp[i][j]=dp[i-1][j-1]+1;
+		else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+	}
+}
+
+
+printf("%*s%s%*s",(width-strlen(s)-2)/2,"",buf,(width-strlen(s)-2)/2,"");
+在printf格式字符串中，与宽度控制和精度控制有关的常量都可以换成变量，方法就是使用一个“*”代替那个常量，然后在后面提供变量给“*”
+printf("%*.*f",10,4,1234.34);//第一个*与10匹配,第二个*与4匹配。打印结果:1234.3400
+
+
+strcmp 比较两个字符串strcmp(str1, str2);
+——若str1=str2，则返回零；
+——若str1<str2，则返回负数；
+——若str1>str2，则返回正数。
+
+path.erase(path.end()-1); vector删除，最后一位为.end()-1。
+
+最后将题目中的中文数据转化为英文数据，字符数组里面可以存储中文，但读取好像就会出现问题。
+
+行输入：scanf("\n");getline(cin,str); 一定要记得去除末尾换行。
+
+自然数a,b互质,则不能表示成ax+by（x,y为非负整数）的最大整数是ab-a-b. 
+证明： 
+a或者b是1的情况下容易证明. 
+以下情况都是a>1且b>1的情况. 
+首先证明ab-a-b不能表示成ax+by 
+假设ab-a-b=ax+by,那么ab=am+bn (m,n都大于等于1) 
+左边是a的倍数,右边am是a的倍数,那么要求bn也要是a的倍数 
+b不是a的倍数,只能要求n是a的倍数,这样的话,bn=bn’a>=ba 
+那么am=ab-bn<=0就与am>1矛盾.
+
+
+lowbit()——x&(-x)
+即最末尾1的位置。
+&算符的优先级不高于-
+
+JAVA 大整数运算：
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner cin = new Scanner(System.in);
+		BigInteger a = BigInteger.valueOf(1);
+		//BigInteger a = BigInteger.ONE;
+		for(int i=0;i<100;i++) {
+			BigInteger t;
+			t=cin.nextBigInteger();
+			a=a.multiply(t);
+		}
+		System.out.println(a);
+	}
+} 

@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<cmath>
+const int MAXN=100000;
+int book[MAXN];
+int mark(int N)
+{
+    int N0=N;
+    int ans=0;
+    while(N>0){
+        if(N%10==1)ans++;
+        N/=10;
+        if(book[N]!=-1){ans+=book[N];break;}
+    }
+    book[N0]=ans;
+    return ans;
+}
+int main()
+{
+    int N,ans=0,yy,yt=0;
+    scanf("%d",&N);yy=N%MAXN;
+    fill(book,book+MAXN,-1);
+    book[0]=0;
+    for(int i=1;i<MAXN;i++){
+        ans+=mark(i);
+        if(i==N)break;
+        if(i==yy)yt=ans;
+    }
+    if(N<MAXN){cout<<ans;return 0;}
+    int Nt=N/MAXN;long long ans2=0;
+    for(int i=1;i<=Nt;i++){
+        ans2+=book[i-1]*MAXN+ans;
+    }
+    ans2+=yt+yy*book[Nt]+1;
+    cout<<ans2;
+    return 0;
+}

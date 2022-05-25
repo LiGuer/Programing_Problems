@@ -1,0 +1,80 @@
+题2：跳蚱蜢
+
+如图 所示：
+有9只盘子，排成1个圆圈。
+其中8只盘子内装着8只蚱蜢，有一个是空盘。
+我们把这些蚱蜢顺时针编号为 1~8
+每只蚱蜢都可以跳到相邻的空盘中，
+也可以再用点力，越过一个相邻的蚱蜢跳到空盘中。
+请你计算一下，如果要使得蚱蜢们的队形改为按照逆时针排列，
+并且保持空盘的位置不变（也就是1-8换位，2-7换位,...），至少要经过多少次跳跃？
+注意：要求提交的是一个整数，请不要填写任何多余内容或说明文字。
+====================================================
+20
+-----------------------------------------------------------------------------------
+/* 参考资料：
+[1] mylegendarytime."https://blog.csdn.net/mylegendarytime/article/details/79316518":
+我们可以发现广搜的运行就像一个三角洲，一条小河慢慢分支汇入大海那样：
+这导致搜索的状态会越来越多，例如这道题，每一种状态有4种转移方式（其中两种是镜像），也就是说，状态数随着步数呈指数级增长。
+那么怎么减少状态数呢？
+我们不仅知道起始状态，还知道终止状态。那么我们从[两头同时广搜]，结果就会少很多了=w=
+*/
+【方法: 两头同时广搜】
+始、终两个广搜，可以放在同一个queue<string> Q;同时进行，没有影响。
+可以用map<string, int> flag;作为区分"始、终"两个的标记，用map<string, int> step;记录"始、终"两个广搜的步数。
+如果flag[tempstate] == flag[state]，则"始、终"两个广搜的河流出现汇接，即我们找到了答案。
+-------------------------------------------------------------------------------------
+#include <iostream>
+#include <map>
+#include <queue>
+using namespace std;
+map<string, int> flag;
+map<string, int> step;
+string st = "012345678", ed = "087654321";
+queue<string> Q;
+string swap(string s0, int a, int b) {
+	string tempstr = s0;
+	char t = tempstr[a];
+	tempstr[a] = tempstr[b];
+	tempstr[b] = t;
+	return tempstr;
+}
+int jump(string state) {
+	int zero;
+	for (int i = 0; i < 9; i++) {
+		if (state[i] == '0') {
+			zero = i; break;
+		}
+	}
+	int xstep[4] = { -2,-1,1,2 };
+	for (int i = 3; i; i--) {
+		int tx = zero + xstep[i];
+		tx = tx < 0 ? tx + 9 : tx;
+		tx = tx >= 9 ? tx - 9 : tx;
+
+		string tempstate = swap(state, zero, tx);
+		if (flag[tempstate] == 0) {
+			flag[tempstate] = flag[state];
+			step[tempstate] = step[state] + 1;
+			Q.push(tempstate);
+		}
+		else if (flag[tempstate] != flag[state]) {
+			int ans = step[state] + step[tempstate] + 1;
+			return ans;
+		}
+	}return 0;
+}
+int main()
+{
+	Q.push(st);
+	Q.push(ed);
+	flag[st] = 1;flag[ed] = 2;
+	step[st] = 0;step[ed] = 0;
+	int ans = 0;
+	while (!Q.empty()) {
+		string t = Q.front();
+		Q.pop();
+		if ((ans = jump(t)) != 0)break;
+	}
+	printf("%d\n",ans);
+}

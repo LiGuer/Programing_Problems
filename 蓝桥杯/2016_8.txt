@@ -1,0 +1,24 @@
+Î´ÅÐ¶¨
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int n;
+	cin>>n;
+	int flag=0;
+	for(int i=0;i<=10;i++){
+		for(int j=0;j<=100;j++){
+			for(int k=0;k<=100;k++){
+				for(int l=0;l<=3000;l++){
+					int t=i*i+j*j+k*k+l*l;
+					if(t==n){
+						cout<<i<<' '<<j<<' '<<k<<' '<<l;
+						flag=1;break;
+					}if(flag)break;
+				}if(flag)break;
+			}if(flag)break;
+		}if(flag)break;
+	}
+	return 0;
+}

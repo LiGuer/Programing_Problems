@@ -1,0 +1,26 @@
+#include<stdio.h>
+#define MAXN 10000
+int main()
+{
+    int N,b;
+    scanf("%d%d",&N,&b);
+    int digit[MAXN]={0},cur=0;
+    if(N==0)cur=1;
+    while(N!=0){
+        digit[cur]=N%b;
+        cur++;
+        N/=b;
+    }
+    int o=1;
+    for(int i=0;i<cur/2;i++){
+        if(digit[i]!=digit[cur-1-i]){
+            o=0;break;
+        }
+    }
+    if(o)printf("Yes\n");
+    else printf("No\n");
+    for(int i=cur-1;i>=0;i--){
+        if(i!=cur-1)printf(" %d",digit[i]);
+        else printf("%d",digit[i]);
+    }
+}

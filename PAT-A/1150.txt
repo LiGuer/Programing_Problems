@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#define MAXN 205
+#include<vector>
+struct node{int v,w;};
+vector<node> graph[MAXN];
+int go(int a[],int n)
+{
+    int dis=0;
+    for(int i=0;i<n-1;i++){
+        int o=1;
+        for(int j=0;j<graph[a[i]].size();j++){
+            if(graph[a[i]][j].v==a[i+1]){
+                dis+=graph[a[i]][j].w;o=0;
+            }
+        }
+        if(o){return -1;}
+    }
+    return dis;
+}
+int main()
+{
+    int N,M,K;
+    cin>>N>>M;
+    for(int i=0;i<M;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        graph[u].push_back({v,w});
+        graph[v].push_back({u,w});
+    }
+    cin>>K;
+    int mindis=99999,minn;
+    for(int i=0;i<K;i++){
+        printf("Path %d: ",i+1);
+        int n,a[MAXN],book[MAXN]={0},o=0;
+        cin>>n;
+        for(int i=0;i<n;i++){cin>>a[i];book[a[i]]++;}
+        book[a[0]]--;
+        for(int i=1;i<=N;i++){
+            if(book[i]==0){o=-1;break;}
+            else if(book[i]>1)o=1;
+        }
+        int dis=go(a,n);
+        if(dis==-1){
+            printf("NA (Not a TS cycle)\n");continue;
+        }
+        else printf("%d ",dis);
+        if(o==-1){
+            printf("(Not a TS cycle)\n");continue;}
+        else if(o)printf("(TS cycle)\n");
+        else printf("(TS simple cycle)\n");
+        if(mindis>dis){mindis=dis;minn=i+1;};
+    }
+    printf("Shortest Dist(%d) = %d",minn,mindis);
+    return 0;
+}

@@ -1,0 +1,47 @@
+¶Ô
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<vector>
+int m,n,map[15][15],s=0,ans=99999999;
+bool book[15][15]={0};
+void dfs(int x,int y,int step,int ts,int s)
+{//cout<<ts<<endl;
+	if(ts>s)return;
+	if(ts==s){ans=ans<step?ans:step;return;}
+	/*for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cout<<book[i][j]<<' ';;
+		}cout<<endl;
+	}cout<<endl;*/
+	int steparrx[4]={1,-1,0,0};
+	int steparry[4]={0,0,-1,1};
+	for(int i=0;i<4;i++){
+		int tx=x+steparrx[i];
+		int ty=y+steparry[i];
+		if(tx>=0&&tx<n&&ty>=0&&ty<m&&book[tx][ty]==0){
+			book[tx][ty]=1;
+			dfs(tx,ty,step+1,ts+map[tx][ty],s);
+			book[tx][ty]=0;
+		}
+	}
+	return;
+}
+int main()
+{
+	vector<int> temp;
+	cin>>m>>n;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cin>>map[i][j];
+			temp.push_back(map[i][j]);
+			s+=map[i][j];
+		}
+	}
+	if(s%2!=0){cout<<s<<' '<<0;return 0;}
+	book[0][0]=1;
+	dfs(0,0,1,map[0][0],s/2);
+	if(ans==99999999)cout<<0;
+	else cout<<ans;
+	return 0;
+}

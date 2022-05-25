@@ -1,0 +1,82 @@
+£¨Î´Íê³É£©
+
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+struct node
+{
+    int l,r,w,f;
+};
+vector<long long> a,k;
+vector<node> tree;
+int n,q;
+
+void build(int l,int r,int k)
+{
+    if(l==r){
+        tree[k]={l,r,a[l],0};
+        return;
+    }
+    tree[k]={l,r,0,0};
+    int m=(l+r)/2;
+    build(l,m,2*k);
+    build(m+1,r,2*k+1);
+    tree[k].w=tree[2*k].w+tree[2*k+1].w;
+    return;
+}
+void down(int k,int f)
+{
+    tree[2*k].w=f*(tree[2*k].r-tree[2*k].l+1);
+    tree[2*k+1].w=f*(tree[2*k+1].r-tree[2*k+1].l+1);
+    tree[2*k].f+=f;
+    tree[2*k+1].f+=f;
+    tree[k].f=0;
+}
+
+void add(int i,int x)
+{
+
+}
+long long sum(int l,int r,int k)
+{
+        for(int i=1;i<4*n+1;i++)cout<<i<<'-'<<tree[i].l<<' '<<tree[i].r<<' '<<tree[i].w<<' '<<tree[i].f<<endl;cout<<endl;
+    long long s=0;
+    if(l<=tree[k].l&&r>=tree[k].r){
+        return tree[k].w;
+    }
+    if(tree[k].f)down(k,tree[k].f);
+    int m=(tree[k].l+tree[k].r)/2;
+    if(l<=m)s+=sum(l,r,2*k);
+    if(r>m)s+=sum(l,r,2*k+1);
+    return s;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    cin>>n;
+    a.resize(n);
+    k.resize(n-1);
+    tree.resize(4*n+1);
+    for(int i=0;i<n;i++)cin>>a[i];
+    for(int i=0;i<n-1;i++)cin>>k[i];
+    build(0,n-1,1);
+
+    cin>>q;
+    while(q--){
+        char type;
+        int l,r;
+        cin>>type>>l>>r;
+        if(type=='+')add(l,r);
+        else if(type=='s'){
+            long long s;
+            s=sum(l,r,1);
+            cout<<s<<endl;
+        }
+    }
+    return 0;
+}

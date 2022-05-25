@@ -1,0 +1,94 @@
+题1：迷宫
+X星球的一处迷宫游乐场建在某个小山坡上。
+它是由10x10相互连通的小房间组成的。
+房间的地板上写着一个很大的字母。
+我们假设玩家是面朝上坡的方向站立，则：
+L表示走到左边的房间，
+R表示走到右边的房间，
+U表示走到上坡方向的房间，
+D表示走到下坡方向的房间。
+X星球的居民有点懒，不愿意费力思考。
+他们更喜欢玩运气类的游戏。这个游戏也是如此！
+开始的时候，直升机把100名玩家放入一个个小房间内。
+玩家一定要按照地上的字母移动。
+迷宫地图如下：
+------------
+UDDLUULRUL
+UURLLLRRRU
+RRUURLDLRD
+RUDDDDUUUU
+URUDLLRRUU
+DURLRLDLRL
+ULLURLLRDU
+RDLULLRDDD
+UUDDUDUDLL
+ULRDLUURRR
+------------
+请你计算一下，最后，有多少玩家会走出迷宫? 
+而不是在里边兜圈子。
+请提交该整数，表示走出迷宫的玩家数目，不要填写任何多余的内容。
+如果你还没明白游戏规则，可以参看一个简化的4x4迷宫的解说图.
+==================================================
+31
+模块化编程思想。
+尽力减少模块间的耦合，让程序更整洁、有条不紊。
+封装的"面向对象"思想非常有帮助。
+
+Flag[][]标记数组，'X'失败标记or本次walk的记号，'O'成功标记。
+若越界，则表示成功逃出，
+若遇见'X'，则表示会失败or绕回之前走的位置。
+-----------------------------------------------------------------------------
+#include <iostream>
+typedef long long ll;
+using namespace std;
+char Map[10][10];
+char Flag[10][10];
+bool walk(int i, int j)
+{
+	if (i < 0 || i >= 10 || j < 0 || j >= 10)return true;
+	else if (Flag[i][j] == 'X')return false;
+	else if (Flag[i][j] == 'O')return true;
+	Flag[i][j] = 'X';
+	bool flag;
+	switch (Map[i][j]) {
+	case 'U':flag = walk(i - 1, j); break;
+	case 'D':flag = walk(i + 1, j); break;
+	case 'L':flag = walk(i, j - 1); break;
+	case 'R':flag = walk(i, j + 1); break;
+	}
+	if (flag)Flag[i][j] = 'O';
+	return flag;
+}
+int main()
+{
+	int ans = 0;
+	memset(Flag, 0, sizeof(Flag));
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			cin>>Map[i][j];
+		}
+	}
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (walk(i, j))ans++;
+		}
+	}
+	printf("%d\n", ans);
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			printf("%c", Flag[i][j]);
+		}printf("\n");
+	}
+	return 0;
+}
+-----------------------------------------------------------------------------
+OXXXOOOOOO
+OXXXXXOOOO
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXOOX
+XXXXXXOOOO
+XXOOXXOOOO
+XXOOOXOOOO

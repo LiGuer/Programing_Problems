@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<cmath>
+int main()
+{
+    int N,ansM=0,ans;
+    scanf("%d",&N);
+    for(int i=sqrt(N);i>1;i--){
+        int Nt=N,Mt=1;
+        if(Nt%i==0){
+            Nt/=i;
+            for(int j=i-1;j>1;j--){
+                if(Nt%j==0){Mt++;Nt/=j;}
+                else break;
+            }
+            if(Mt>=ansM){ansM=Mt;ans=i;}
+        }
+    }
+    if(ansM==0){printf("1\n%d",N);return 0;}
+    printf("%d\n",ansM);
+    for(int i=ans-ansM+1;i<=ans;i++){
+        if(i!=ans)printf("%d*",i);
+        else printf("%d",i);
+    }
+    return 0;
+}

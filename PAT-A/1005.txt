@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<string>
+#include<iostream>
+using namespace std;
+int main()
+{
+    char num;
+    int sum=0;
+    while(cin>>num){
+        sum+=num-'0';
+    }
+    string ans;
+    ans=to_string(sum);
+    int len=ans.length();
+    string dict[12]={"zero","one","two","three","four","five","six","seven","eight","nine","ten"};
+    for(int i=0;i<len;i++){
+        if(i==0)cout<<dict[ans[i]-'0'];
+        else cout<<" "<<dict[ans[i]-'0'];
+    }
+}

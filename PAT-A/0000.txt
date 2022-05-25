@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<algorithm>
+bool cmp(string a,string b)
+{
+    return a+b<b+a;
+}
+int main()
+{
+    int N;
+    cin>>N;
+    string str[1005];
+    for(int i=0;i<N;i++){
+        int temp;
+        cin>>temp;
+        str[i]=to_string(temp);
+    }
+    sort(str,str+N,cmp);
+    string s;
+    for(int i=0;i<N;i++)s+=str[i];
+    int ans=0;
+    for(int i=0;i<s.length();i++){
+        ans=ans*10+s[i]-'0';
+    }
+    cout<<ans;
+}
+
+
+
+int num1=atoi(strnum.c_str());
+    long int num2=strtol(strnum.c_str(),nullptr,10);
+
+
+
+
+
+
+
+
+
+
+
+#include<stdio.h>
+#include<vector>
+#define MAXN 100000
+vector<int> node[MAXN];
+
+int main()
+{
+    int n;
+    float r,p;
+    scanf("%d%f%f",n,r,p);
+    r/=100;
+    for(int i=0;i<n;i++){
+        int in
+    }
+}
+
+
+
+
+
+
+
+
+
+#include<stdio.h>
+#define MAXN 100005
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    int dist[MAXN];
+    for(int i=0;i<N;i++){scanf("%d",&dist[i]);if(!i)dist[i]+=dist[i-1];}
+    int M;
+    scanf("%d",&M);
+    while(M--){
+        int start,end;
+        scanf("%d%d",&start,&end);
+        if(start>end){int temp=start;start=end;end=temp;}
+        int s1=0;
+        s1=s
+        int s2=sum-s1;
+        printf("%d\n",s1<s2?s1:s2);
+    }
+return 0;
+}

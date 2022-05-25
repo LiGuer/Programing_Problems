@@ -1,0 +1,35 @@
+#include<stdio.h>
+#define MAXN 10000
+#include<algorithm>
+using namespace std;
+struct person
+{
+    char ID[20];
+    int in,out;
+}per[MAXN];
+bool cmp1(person a,person b)
+{
+    return a.in<b.in;
+}
+bool cmp2(person a,person b)
+{
+    return a.out>b.out;
+}
+
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        scanf("%s",&per[i].ID);
+        int hh,mm,ss;
+        scanf("%d:%d:%d",&hh,&mm,&ss);
+        per[i].in=hh*10000+mm*100+ss;
+        scanf("%d:%d:%d",&hh,&mm,&ss);
+        per[i].out=hh*10000+mm*100+ss;
+    }
+    sort(per,per+N,cmp1);
+    printf("%s ",per[0].ID);
+    sort(per,per+N,cmp2);
+    printf("%s",per[0].ID);
+}

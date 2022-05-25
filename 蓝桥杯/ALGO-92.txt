@@ -1,0 +1,17 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	char op;
+	int a,b;
+	cin>>op>>a>>b;
+	if(op=='+')cout<<a+b;
+	else if(op=='-')cout<<a-b;
+	else if(op=='*')cout<<a*b;
+	else if(op=='/'){
+		if(b==0)return 0;
+		else cout<<a/b;
+	}
+	return 0;
+}

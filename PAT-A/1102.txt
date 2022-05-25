@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+#include<queue>
+struct node
+{
+    int l=-1,r=-1;
+};
+vector<node> tree;
+int o=1;
+void level(int root)
+{
+    queue<int> Q;
+    Q.push(root);
+    while(!Q.empty()){
+        int id=Q.front();
+        Q.pop();
+        if(tree[id].r!=-1)Q.push(tree[id].r);
+        if(tree[id].l!=-1)Q.push(tree[id].l);
+        if(o==1){cout<<id;o=0;}
+        else cout<<' '<<id;
+    }
+
+}
+void in(int id)
+{
+    if(tree[id].r!=-1)in(tree[id].r);
+    if(o==1){cout<<id;o=0;}
+        else cout<<' '<<id;
+    if(tree[id].l!=-1)in(tree[id].l);
+
+}
+int main()
+{
+    int N,book[12]={0};
+    scanf("%d",&N);
+    tree.resize(N+5);
+    for(int i=0;i<N;i++){
+        char l,r;
+        cin>>l>>r;
+        if(l!='-'){tree[i].l=l-'0';book[l-'0']++;}
+        if(r!='-'){tree[i].r=r-'0';book[r-'0']++;}
+    }
+    int root;
+    for(int i=0;i<N;i++)if(book[i]==0){root=i;break;}
+    level(root);
+    o=1;cout<<endl;
+    in(root);
+}

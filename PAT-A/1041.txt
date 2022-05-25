@@ -1,0 +1,18 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int N,num[100005],book[10005]={0};
+    cin>>N;
+    for(int i=0;i<N;i++){
+        cin>>num[i];
+        book[num[i]]++;
+    }
+    int o=1;
+    for(int i=0;i<N;i++){
+        if(book[num[i]]==1){
+            cout<<num[i];o=0;break;
+        }
+    }
+    if(o)cout<<"None";
+}

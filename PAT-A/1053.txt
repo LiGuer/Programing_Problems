@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+struct node
+{
+    int w,is=0;
+    vector<int> child;
+}tree[105];
+vector<int> path;
+bool cmp(int a,int b)
+{
+    return tree[a].w>tree[b].w;
+}
+void DFS(int S,int sum,int id)
+{
+    path.push_back(tree[id].w);
+    if(tree[id].is==0){
+        if(sum+tree[id].w!=S){path.pop_back();return;}
+        else{
+            for(int i=0;i<path.size();i++){
+                if(i==path.size()-1)cout<<path[i]<<endl;
+                else cout<<path[i]<<' ';
+            }
+            path.pop_back();
+            return;
+        }
+    }
+    sum+=tree[id].w;
+    while(!tree[id].child.empty()){
+        int temp=tree[id].child[0];
+        DFS(S,sum,temp);
+        tree[id].child.erase(tree[id].child.begin());
+    }
+    path.pop_back();
+    return;
+}
+int main()
+{
+    int N,M,S;
+    scanf("%d %d %d",&N,&M,&S);
+    for(int i=0;i<N;i++){
+        scanf("%d",&tree[i].w);
+    }
+    for(int i=0;i<M;i++){
+        int id,K;
+        scanf("%d %d",&id,&K);
+        tree[id].is=1;
+        tree[id].child.resize(K);
+        for(int j=0;j<K;j++){
+            scanf("%d",&tree[id].child[j]);
+        }
+        sort(tree[id].child.begin(),tree[id].child.end(),cmp);
+    }
+    int sum;
+    DFS(S,0,0);
+return 0;
+}

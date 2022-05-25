@@ -1,0 +1,31 @@
+¶Ô
+#include<iostream>
+using namespace std;
+#include<algorithm>
+#include<vector>
+int main()
+{
+	int na;
+	cin>>na;
+	vector<int> a;
+	for(int i=0;i<na;i++){
+		string str;
+		scanf("\n");getline(cin,str);
+		for(int j=0;j<str.length();j++){
+			int t=0;
+			while(str[j]!=' '&&j<str.length()){
+				t=t*10+str[j]-'0';
+				j++;
+			}
+			a.push_back(t);
+		}
+	}
+	sort(a.begin(),a.end());
+	int m,n;
+	for(int i=0;i<a.size()-1;i++){
+		if(a[i+1]==a[i])n=a[i];
+		else if(a[i+1]!=a[i]+1)m=a[i]+1;
+	}
+	cout<<m<<' '<<n;
+	return 0;
+}

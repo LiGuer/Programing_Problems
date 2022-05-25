@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+vector<int> tree[105];
+int book[105]={0},ans[105]={0},cur=0;
+void DFS(int id,int deep)
+{
+    if(book[id]==0){
+        ans[deep]++;
+        if(cur<deep)cur=deep;
+        return;
+    }
+    for(int i=0;i<tree[id].size();i++){
+        DFS(tree[id][i],deep+1);
+    }
+}
+int main()
+{
+    int N,M;
+    scanf("%d %d",&N,&M);
+    for(int i=0;i<M;i++){
+        int t,K;
+        scanf("%d %d",&t,&K);
+        tree[t].resize(K);book[t]++;
+        for(int j=0;j<K;j++){
+            scanf("%d",&tree[t][j]);
+        }
+    }
+    DFS(1,0);
+    for(int i=0;i<=cur;i++){
+        if(i!=0)cout<<' ';
+        cout<<ans[i];
+    }
+}

@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+#define MAXN 10005
+vector<int> graph[MAXN];
+int N,M,K,in[MAXN];
+bool check(vector<int> a)
+{
+    int temp[MAXN];
+    for(int i=0;i<=N;i++)temp[i]=in[i];
+    for(int i=0;i<N;i++){
+        if(temp[a[i]]!=0)return false;
+        for(int j=0;j<graph[a[i]].size();j++){
+            temp[graph[a[i]][j]]--;
+        }
+    }
+    return true;
+}
+int main()
+{
+    scanf("%d%d",&N,&M);
+    for(int i=0;i<M;i++){
+        int u,v;
+        scanf("%d%d",&u,&v);
+        graph[u].push_back(v);
+        in[v]++;
+    }
+    scanf("%d",&K);int o=0;
+    for(int i=0;i<K;i++){
+        vector<int> a;
+        a.resize(N);
+        for(int j=0;j<N;j++)scanf("%d",&a[j]);
+        if(!check(a)){
+            if(o)printf(" ");o=1;
+            printf("%d",i);
+        }
+    }
+    return 0;
+}

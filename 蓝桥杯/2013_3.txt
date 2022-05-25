@@ -1,0 +1,36 @@
+35   ¶Ô
+¸½.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#include<vector>
+string map[4]={"CWZQG","WZQGX","ZQGXK","QGXKF"};
+int ans=0;
+void dfs(int i,int j,vector<char> path)
+{
+	if(i==3&&j==4){
+		string anstr;cout<<path.size()<<endl;
+		for(int k=0;k<path.size();k++){
+			anstr=anstr+path[k];cout<<anstr<<endl;
+		}
+		if(anstr=="CWZQGXKF")ans++;
+		return;
+	}
+	if(i<3){
+		path.push_back(map[i+1][j]);
+		dfs(i+1,j,path);
+		path.erase(path.end()-1);
+	}
+	if(j<4){
+		path.push_back(map[i][j+1]);
+		dfs(i,j+1,path);
+		path.erase(path.end()-1);
+	}
+}
+int main()
+{
+	vector<char> path;
+	path.push_back(map[0][0]);
+	dfs(0,0,path);
+	cout<<ans;
+}

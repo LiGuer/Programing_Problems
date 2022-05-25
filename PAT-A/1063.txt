@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+#include<set>
+#include<algorithm>
+#include<stdio.h>
+#define MAXN 10000
+set<int> sets[MAXN];
+
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        int M;scanf("%d",&M);
+        for(int j=0;j<M;j++){
+            int num;scanf("%d",&num);
+            sets[i].insert(num);
+        }
+    }
+    int K;scanf("%d",&K);
+    for(int i=0;i<K;i++){
+        int s1,s2;scanf("%d%d",&s1,&s2);
+        s1--;s2--;
+        int com=0,tot=sets[s2].size();
+        for(set<int>::iterator it=sets[s1].begin();it!=sets[s1].end();it++){
+            if(sets[s2].find(*it)!=sets[s2].end())com++;
+            else tot++;
+        }
+        float ans=1.0*com/tot*100;
+        printf("%.1f%c\n",ans,'%');
+    }
+}

@@ -1,0 +1,107 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<stdio.h>
+#include<map>
+#include<string>
+#define MAXN 100000
+#define INF 1147483647
+map<int,string> strnam;
+map<int,int> weight;
+struct node{int id,w;};
+vector<node> graph[MAXN];
+vector<int> pre[MAXN];
+int N,K,s;;
+int d[MAXN];
+bool book[MAXN]={false};
+void Dijkstra()
+{
+    fill(d,d+MAXN,INF);
+    d[s]=0;
+    for(int i=0;i<N;i++){
+        int u=-1,minn=INF;
+        for(int j=0;j<MAXN;j++){
+            if(book[j]==false&&d[j]<minn){
+                u=j;minn=d[j];
+            }
+        }
+        if(u==-1)return;
+        book[u]=true;
+        for(int j=0;j<graph[u].size();j++){
+            int v=graph[u][j].id;
+            if(d[u]+graph[u][j].w<d[v]){
+                d[v]=d[u]+graph[u][j].w;
+                pre[v].clear();
+                pre[v].push_back(u);
+            }
+            else if(d[u]+graph[u][j].w==d[v]){
+                pre[v].push_back(u);
+            }
+        }
+    }
+}
+int num=0,maxhap=0;
+double maxavg=0;
+vector<int> path,tempath;
+void DFS(int u,int deep,int hap)
+{
+
+    tempath.push_back(u);
+    if(u==s){num++;
+        if(hap>maxhap){
+            path=tempath;
+            maxhap=hap;
+            maxavg=1.0*hap/deep;
+        }
+        else if(hap==maxhap){
+            if(maxavg<1.0*hap/deep){
+                path=tempath;
+                maxavg=1.0*hap/deep;
+            }
+        }
+    }
+    else{
+        for(int i=0;i<pre[u].size();i++){
+            DFS(pre[u][i],deep+1,hap+weight[pre[u][i]]);
+        }
+    }
+    tempath.pop_back();
+}
+int to_id(char name[])
+{
+    int temp=0;
+    for(int i=0;i<3;i++)
+        temp=temp*10+name[i]-'A';
+    return temp;
+}
+int main()
+{
+    char sc[4];
+    scanf("%d%d%s",&N,&K,&sc);
+    s=to_id(sc);
+    for(int i=0;i<N-1;i++){
+        char name[4];
+        int happy,id;
+        scanf("%s%d",&name,&happy);
+        id=to_id(name);
+        weight[id]=happy;
+        strnam[id]=name;
+    }
+    for(int i=0;i<K;i++){
+        char uc[4],vc[4];
+        int u,v,w;
+        scanf("%s%s%d",&uc,&vc,&w);
+        u=to_id(uc);v=to_id(vc);
+        graph[u].push_back({v,w});
+        graph[v].push_back({u,w});
+    }
+    Dijkstra();
+    int ed=to_id("ROM");
+    DFS(ed,0,weight[ed]);
+    printf("%d %d %d %d\n",num,d[ed],maxhap,int(maxavg));
+    cout<<sc;
+    for(int i=path.size()-2;i>=0;i--){
+        cout<<"->"<<strnam[path[i]];
+    }
+return 0;
+}

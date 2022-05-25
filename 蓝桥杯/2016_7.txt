@@ -1,0 +1,45 @@
+116   ¶Ô
+ps.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int ans=0,step;
+void dfs(int a[],int k,int b[])
+{
+	if(step==5){ans++;
+		for(int w=0;w<5;w++)cout<<a[w]<<' ';cout<<endl;
+							return;}
+	b[k]=0;
+	int dis[4]={1,-1,4,-4};
+	for(int i=0;i<4;i++){
+		if(dis[i]==1&&(a[k]==4||a[k]==8))continue;
+		if(dis[i]==-1&&(a[k]==5||a[k]==9))continue;
+		int t=dis[i]+a[k];
+		if(t<1||t>12)continue;
+		for(int j=0;j<5;j++){
+			if(t==b[j]){
+				step++;
+				dfs(a,j,b);
+			}
+		}
+	}
+}
+int main()
+{
+	for(int i=1;i<=8;i++){
+		for(int j=i+1;j<=9;j++){
+			for(int k=j+1;k<=10;k++){
+				for(int l=k+1;l<=11;l++){
+					for(int o=l+1;o<=12;o++){
+						int a[5]={i,j,k,l,o};
+						int b[5]={i,j,k,l,o};
+						step=1;
+						dfs(a,0,b);
+					}
+				}
+			}
+		}
+	}
+	cout<<ans;
+	return 0;
+}

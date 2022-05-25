@@ -1,0 +1,62 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+const int MAXN=505,INF=1147483647;
+struct node{int id,w,cost;};
+vector<node>graph[MAXN];
+
+int N,M,s,ed;
+int d[MAXN],c[MAXN],pre[MAXN];
+bool book[MAXN]={false};
+void Dijkstra()
+{
+    fill(d,d+N,INF);
+    d[s]=0,c[s]=0;
+    for(int i=0;i<N;i++){
+        int u=-1,MIN=INF;
+        for(int j=0;j<N;j++){
+            if(book[j]==false&&d[j]<MIN){
+                u=j,MIN=d[j];
+            }
+        }
+        if(u==-1||u==ed)return;
+        book[u]=true;
+        for(int j=0;j<graph[u].size();j++){
+            int v=graph[u][j].id;
+            if(book[v]==false){
+                if(d[u]+graph[u][j].w<d[v]){
+                    d[v]=d[u]+graph[u][j].w;
+                    c[v]=c[u]+graph[u][j].cost;
+                    pre[v]=u;
+                }
+                else if(d[u]+graph[u][j].w==d[v]){
+                    if(c[v]>c[u]+graph[u][j].cost){
+                        c[v]=c[u]+graph[u][j].cost;
+                        pre[v]=u;
+                    }
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    scanf("%d%d%d%d",&N,&M,&s,&ed);
+    for(int i=0;i<M;i++){
+        int c1,c2,w,cost;
+        scanf("%d%d%d%d",&c1,&c2,&w,&cost);
+        graph[c1].push_back({c2,w,cost});
+        graph[c2].push_back({c1,w,cost});
+    }
+    Dijkstra();
+    vector<int> path;
+    int temp=ed;
+    path.push_back(temp);
+    while(temp!=s){
+        path.push_back(pre[temp]);
+        temp=pre[temp];
+    }
+    for(int i=path.size()-1;i>=0;i--)cout<<path[i]<<' ';
+    cout<<d[ed]<<' '<<c[ed];
+}

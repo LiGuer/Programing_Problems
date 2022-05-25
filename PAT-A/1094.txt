@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+vector<int> tree[105];
+int N,M,gene[10]={0};
+void DSF(int a,int level)
+{
+    gene[level]++;
+    for(int i=0;i<tree[a].size();i++){
+        DSF(tree[a][i],level+1);
+    }
+}
+int main()
+{
+
+  cin>>N>>M;
+  while(M--){
+    int t,k;
+    cin>>t>>k;
+    while(k--){
+        int tch;cin>>tch;
+        tree[t].push_back(tch);
+    }
+  }
+  DSF(1,1);
+  int t=0;
+  for(int i=1;i<10;i++){
+    if(gene[i]>gene[t])t=i;
+  }
+  cout<<gene[t]<<' '<<t;
+}

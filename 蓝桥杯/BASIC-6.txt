@@ -1,0 +1,26 @@
+#include<iostream>
+#include<algorithm>
+#define MAXN 105
+using namespace std;
+int main()
+{
+	int n,a[MAXN];
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		int t;
+		for(int j=1;j<=i;j++){
+			if(j==1||j==i){a[j]=1;t=1;}
+			else{
+				int t2=a[j];
+				a[j]+=t;
+				t=t2;
+			}
+		}
+		for(int j=1;j<=i;j++){
+			if(j==1)cout<<a[j];
+			else cout<<' '<<a[j];
+		}
+		cout<<endl;
+	}
+	return 0;
+}

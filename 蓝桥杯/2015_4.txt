@@ -1,0 +1,1 @@
+(width-2-strlen(s))/2,"",s,(width-2-strlen(s))/2,""   ¶Ô

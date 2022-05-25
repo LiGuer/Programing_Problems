@@ -1,0 +1,26 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+vector<int> pre,in,post;
+void tree(int pl,int pr,int il,int ir)
+{
+    if(pl>pr||il>ir)return;
+    int root=pre[pl],cur=il;
+    while(in[cur]!=root)cur++;
+    tree(pl+1,pl+cur-il,il,cur-1);
+    tree(pl+1+cur-il,pr,cur+1,ir);
+    post.push_back(root);
+    return;
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    pre.resize(N);in.resize(N);
+    for(int i=0;i<N;i++)scanf("%d",&pre[i]);
+    for(int i=0;i<N;i++)scanf("%d",&in[i]);
+    tree(0,N-1,0,N-1);
+    printf("%d",post[0]);
+    return 0;
+}

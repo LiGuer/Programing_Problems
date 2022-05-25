@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+const int MAXN = 505,INF = 1147483647;
+struct node{int id,w;};
+vector<node> graph[MAXN];
+vector<int>pre[MAXN],path,pathtemp;
+int C,N,ed,M,weight[MAXN];
+int d[MAXN],mineed=INF,minback=INF;
+bool book[MAXN]={false};
+void Dijkstra(int s)
+{
+    fill(d,d+N,INF);
+    d[s]=0;
+    for(int i=0;i<N;i++){
+        int u=-1,MIN=INF;
+        for(int j=0;j<N;j++){
+            if(book[j]==false&&d[j]<MIN){
+                u=j;MIN=d[j];
+            }
+        }
+        if(u==-1||u==ed)return;
+        book[u]=true;
+        for(int j=0;j<graph[u].size();j++){
+            int v=graph[u][j].id;
+            if(book[v]==false){
+                if(d[u]+graph[u][j].w<d[v]){
+                    d[v]=d[u]+graph[u][j].w;
+                    pre[v].clear();
+                    pre[v].push_back(u);
+                }else if(d[u]+graph[u][j].w==d[v]){
+                    pre[v].push_back(u);
+                }
+            }
+        }
+    }
+}
+void DFS(int u)
+{
+    if(u==0){
+        int need=0,back=0;
+        for(int i=pathtemp.size()-1;i>=0;i--){
+            int v=pathtemp[i];
+            if(weight[v]<0){
+                if(back>=-weight[v]){
+                    back-=-weight[v];
+                }
+                else{
+                    need+=-weight[v]-back;back=0;
+                }
+            }
+            else if(weight[v]>0){
+                back+=weight[v];
+            }
+        }
+        if(need<mineed){
+            mineed=need;
+            minback=back;
+            path=pathtemp;
+        }
+        else if(need==mineed&&back<minback){
+            minback=back;
+            path=pathtemp;
+        }
+    }
+    pathtemp.push_back(u);
+    for(int i=0;i<pre[u].size();i++){
+        DFS(pre[u][i]);
+    }
+    pathtemp.pop_back();
+    return;
+}
+int main()
+{
+    scanf("%d%d%d%d",&C,&N,&ed,&M);
+    for(int i=0;i<N;i++){
+        scanf("%d",&weight[i+1]);
+        weight[i+1]-=C/2;
+    }
+    for(int i=0;i<M;i++){
+        int c1,c2,w;
+        scanf("%d%d%d",&c1,&c2,&w);
+        graph[c1].push_back({c2,w});
+        graph[c2].push_back({c1,w});
+    }
+    N++;
+    Dijkstra(0);
+    DFS(ed);
+    cout<<mineed<<' '<<0;
+    for(int i=i=path.size()-1;i>=0;i--)cout<<"->"<<path[i];
+    cout<<' '<<minback;
+    return 0;
+}

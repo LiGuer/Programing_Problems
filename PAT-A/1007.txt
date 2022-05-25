@@ -1,0 +1,48 @@
+法1：DP动态规划 O(n)
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#define MAXN 10005
+int main()
+{
+    int N,a[MAXN],dp[MAXN],ans=-999,l,r,flag=1;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){scanf("%d",&a[i]);if(a[i]>=0)flag=0;}
+    if(flag){printf("0 %d %d",a[0],a[N-1]);return 0;}
+    dp[0]=a[0];
+    for(int i=1;i<N;i++){dp[i]=max(dp[i-1]+a[i],a[i]);}
+    for(int i=0;i<N;i++){
+        int t;
+        if(a[i]==dp[i])t=i;
+        if(ans<dp[i]){ans=dp[i];r=i;l=t;}
+    }
+    printf("%d %d %d",ans,a[l],a[r]);
+    return 0;
+}
+
+
+法2：
+#include<stdio.h>
+#define MAXN 10005
+int main()
+{
+    int N,n[MAXN],flag=1;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        scanf("%d",&n[i]);
+        if(n[i]>=0)flag=0;
+    }
+    if(flag){printf("0 %d %d",n[0],n[N-1]);return 0;}
+    int a=0,b=0,maxn=n[0],cur;
+    for(int i=0;i<N;i++){
+        for(int j=i;j<N;j++){
+            int t;
+            if(j!=i)t=cur+n[j];
+            else t=n[i];
+            if(t>maxn){a=i,b=j,maxn=t;}
+            cur=t;
+        }
+    }
+    printf("%d %d %d",maxn,n[a],n[b]);
+    return 0;
+}

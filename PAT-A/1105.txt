@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<cmath>
+#include<iostream>
+#include<algorithm>
+#define MAXN 10005
+int ans[MAXN][MAXN];
+using namespace std;
+int main()
+{
+    int N,a[MAXN],m,n;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        scanf("%d",&a[i]);
+    }
+    for(int i=sqrt(N);i>=1;i--){
+        if(N%i==0){m=i;n=N/i;break;}
+    }
+    sort(a,a+N);
+    int cur=N-1,i0=0,j0=0,oi=1,oj=1;
+    while(cur>=0){
+        for(int j=j0;j<m&&j>=0;j+=oj){
+            if(ans[i0][j]==0){ans[i0][j]=a[cur--];j0=j;}
+        }oj*=-1;
+        for(int i=i0;i<n&&i>=0;i+=oi){
+            if(ans[i][j0]==0){ans[i][j0]=a[cur--];i0=i;}
+        }oi*=-1;
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(j!=0)printf(" ");
+            printf("%d",ans[i][j]);
+        }printf("\n");
+    }
+return 0;
+}

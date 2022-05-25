@@ -1,0 +1,34 @@
+¶Ô
+#include<bits/stdc++.h>
+using namespace std;
+string a;
+int pos=0;
+int dfs()
+{
+    int anst=0,temp=0;
+    while(pos<a.length()){
+        //cout<<a[pos]<<' '<<temp<<' '<<anst<<endl;
+        if(a[pos]=='('){
+            ++pos;
+            temp+=dfs();
+        }
+        else if(a[pos]==')'){
+            return max(anst,temp);
+        }
+        else if(a[pos]=='|'){
+            anst=max(anst,temp);
+            temp=0;
+        }
+        else temp++;
+        pos++;
+    }
+    return max(anst,temp);
+}
+int main()
+{
+    freopen("C:/Users/ÐÜè÷ºÀ/Desktop/input1.txt","r",stdin);
+    cin>>a;
+    int ans=dfs();
+    cout<<ans;
+    return 0;
+}

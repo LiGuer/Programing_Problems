@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+const int INF=1147483647,MAXN=10000;
+struct node{int id,w;};
+vector<node> graph[MAXN];
+int N,M,K,dm;
+int d[MAXN];
+void Dijkstra(int s)
+{
+    fill(d,d+MAXN,INF);
+    bool book[MAXN]={false};
+    d[s]=0;
+    for(int i=0;i<N+M;i++){
+        int u=-1,minn=INF;
+        for(int j=1;j<=N+M;j++){
+            if(d[j]<minn&&book[j]==false){
+                u=j;minn=d[j];
+            }
+        }
+        if(u==-1)break;
+        book[u]=true;
+        for(int j=0;j<graph[u].size();j++){
+            int v=graph[u][j].id;
+            if(d[u]+graph[u][j].w<d[v]){
+                d[v]=d[u]+graph[u][j].w;
+            }
+        }
+    }
+}
+int ansG=-1;
+double ansmind=0,ansavg;
+void Check(int s)
+{
+    int minn=INF;
+    double avg=0;
+    for(int i=1;i<=N;i++){
+        if(minn>d[i])minn=d[i];
+        avg+=d[i];
+        if(d[i]>dm)return;
+    }
+    avg/=N;
+    if(minn>ansmind){
+        ansmind=minn;
+        ansG=s-N;
+        ansavg=avg;
+    }
+    else if(minn==ansmind&&ansavg>avg){
+        ansG=s-N;
+        ansavg=avg;
+    }
+    else if(minn==ansmind&&ansavg==avg){
+        ansG=ansG<s-N?ansG:s-N;
+    }
+}
+int main()
+{
+    scanf("%d%d%d%d",&N,&M,&K,&dm);
+    for(int i=0;i<K;i++){
+        string c1,c2;
+        int u,v,w;
+        cin>>c1>>c2>>w;
+        if(c1[0]=='G'){
+            c1=c1.substr(1);
+            u=N+stoi(c1);
+        }
+        else u=stoi(c1);
+        if(c2[0]=='G'){
+            c2=c2.substr(1);
+            v=N+stoi(c2);
+        }
+        else v=stoi(c2);
+        graph[u].push_back({v,w});
+        graph[v].push_back({u,w});
+    }
+    for(int i=N+1;i<=N+M;i++){
+        Dijkstra(i);
+        Check(i);
+    }
+    if(ansG==-1)printf("No Solution");
+    else{
+        printf("G%d\n%.1f %.1f",ansG,ansmind,ansavg);
+    }
+    return 0;
+}

@@ -1,0 +1,35 @@
+64   ¶Ô
+ps.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int ans=0;
+bool cmp(int a[])
+{
+	if(a[0]+a[1]!=a[2])return false;
+	if(a[3]-a[4]!=a[5])return false;
+	if(a[6]*a[7]!=a[8])return false;
+	if(1.0*a[9]/a[10]!=1.0*a[11])return false;
+	return true;
+}
+void fun(int a[],int l,int r)
+{
+	if(l==r&&cmp(a)){
+		for(int i=0;i<13;i++)cout<<a[i]<<' ';
+		cout<<endl;
+		ans++;
+	}
+	for(int i=l;i<=r;i++){
+		swap(a[l],a[i]);
+		fun(a,l+1,r);
+		swap(a[l],a[i]);
+	}
+} 
+int main()
+{
+	int a[15];
+	for(int i=1;i<=13;i++)a[i-1]=i;
+	fun(a,0,12);
+	cout<<ans;
+	return 0;
+}

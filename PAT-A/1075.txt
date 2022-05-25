@@ -1,0 +1,54 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+#include<algorithm>
+#include<string.h>
+struct node
+{
+    int id,mark[10]={-1},total=0,sol=0;
+    bool flag=false;
+}user[10005];
+bool cmp(node a,node b)
+{
+
+    if(a.total!=b.total)return a.total>b.total;
+    if(a.sol!=b.sol)return a.sol>b.sol;
+    return a.id<b.id;
+}
+int main()
+{
+    int N,K,M;
+    scanf("%d %d %d",&N,&K,&M);
+    for(int i=1;i<=10004;i++)for(int j=0;j<10;j++){user[i].id=i;user[i].mark[j]=-1;}
+    int problem[10];
+    for(int i=0;i<K;i++)cin>>problem[i];
+    for(int i=0;i<M;i++){
+        int id,pro,mark;
+        scanf("%d %d %d",&id,&pro,&mark);
+        if(mark>-1)user[id].flag=true;
+        if(user[id].mark[pro-1]==-1)user[id].mark[pro-1]=0;
+        if(user[id].mark[pro-1]<mark)user[id].mark[pro-1]=mark;
+    }
+    for(int i=1;i<=N;i++){
+        int sum=0;
+        for(int j=0;j<10;j++){
+            if(user[i].mark[j]>0)user[i].total+=user[i].mark[j];
+            if(user[i].mark[j]==problem[j])sum++;
+        }
+        user[i].sol=sum;
+    }
+
+    sort(user+1,user+N+1,cmp);
+    int cur=0;
+    for(int i=1;i<=N;i++)
+    {
+        if(!user[i].flag)continue;
+        if(user[i].total!=user[cur].total)cur=i;
+        printf("%d %05d %d",cur,user[i].id,user[i].total);
+        for(int j=0;j<K;j++){
+            if(user[i].mark[j]==-1)cout<<" -";
+            else cout<<' '<<user[i].mark[j];
+        }
+        cout<<endl;
+    }
+}

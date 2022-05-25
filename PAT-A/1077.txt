@@ -1,0 +1,28 @@
+#include<iostream>
+#include<stdio.h>
+#include<string>
+#include<algorithm>
+using namespace std;
+int main()
+{
+    int N;
+    scanf("%d\n",&N);
+    string ans;
+    for(int i=0;i<N;i++){
+        string s;
+        getline(cin,s);
+        int len=s.length();
+        reverse(s.begin(),s.end());
+        if(i==0)ans=s;
+        else{
+            int cur=ans.length();
+            if(cur>len)cur=len;
+            for(int j=0;j<cur;j++){
+                if(ans[j]!=s[j]){ans=ans.substr(0,j);break;}
+            }
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    if(ans.length()==0)cout<<"nai";
+    else cout<<ans;
+}

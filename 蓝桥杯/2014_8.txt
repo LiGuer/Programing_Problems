@@ -1,0 +1,47 @@
+¶Ô
+#include<bits/stdc++.h>
+using namespace std;
+int Map[55][55],dp[55][55][15][15];
+int n,m,key;
+void dfs(int x,int y,int k,int c)
+{//cout<<x<<' '<<y<<' '<<k<<' '<<c<<endl;
+    if(dp[x][y][k][c]!=-1)return;
+    dp[x][y][k][c]=0;
+    if(x==n-1&&y==m-1&&k==key){
+        dp[x][y][k][c]=1;return;
+    }
+    if(c<Map[x][y]&&k+1<=key){
+        dfs(x,y,k+1,Map[x][y]);dp[x][y][k][c]+=dp[x][y][k+1][Map[x][y]];
+        dp[x][y][k][c]%=1000000007;
+    }
+    if(x+1<=n-1){
+        dfs(x+1,y,k,c);
+        dp[x][y][k][c]+=dp[x+1][y][k][c];
+        dp[x][y][k][c]%=1000000007;
+    }
+    if(y+1<=m-1){
+        dfs(x,y+1,k,c);
+        dp[x][y][k][c]+=dp[x][y+1][k][c];
+        dp[x][y][k][c]%=1000000007;
+    }
+    return;
+}
+int main()
+{
+    //freopen("C:/Users/ÐÜè÷ºÀ/Desktop/input1.txt","r",stdin);
+    cin>>n>>m>>key;
+    for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++)
+            {cin>>Map[i][j];Map[i][j]++;}
+    memset(dp,-1,sizeof(dp));
+    dfs(0,0,0,0);
+    cout<<dp[0][0][0][0]<<endl;
+    /*for(int k=0;k<=12;k++){cout<<"K: "<<k<<endl;
+        for(int c=0;c<12;c++){cout<<"C: "<<c<<endl;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++)cout<<dp[i][j][k][c]<<' ';cout<<endl;
+            }
+        }
+    }*/
+    return 0;
+}

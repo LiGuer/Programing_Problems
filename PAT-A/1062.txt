@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+#include<string>
+#include<algorithm>
+#include<stdio.h>
+#define MAXN 100000
+struct student
+{
+    int name;
+    int de,cai,sum;
+    int order;
+}stu[MAXN];
+bool cmp(student a,student b)
+{
+    if(a.order!=b.order)return a.order<b.order;
+    else if(a.sum!=b.sum)return a.sum>b.sum;
+    else if(a.de!=b.de)return a.de>b.de;
+    else return a.name<b.name;
+}
+
+int main()
+{
+    int N,L,H;
+    scanf("%d %d %d",&N,&L,&H);
+    int s=N;
+    for(int i=0;i<N;i++)
+    {
+        scanf("%d %d %d",&stu[i].name,&stu[i].de,&stu[i].cai);
+        stu[i].sum=stu[i].de+stu[i].cai;
+        if(stu[i].de>=H&&stu[i].cai>=H)stu[i].order=1;
+        else if(stu[i].de<L||stu[i].cai<L){stu[i].order=5;s--;}
+        else if(stu[i].de>=H&&stu[i].cai<H)stu[i].order=2;
+        else if(stu[i].de<H&&stu[i].cai<=stu[i].de)stu[i].order=3;
+        else stu[i].order=4;
+    }
+    sort(stu,stu+N,cmp);
+    cout<<s<<endl;
+    for(int i=0;i<s;i++){
+        cout<<stu[i].name<<' ';
+        printf("%d %d\n",stu[i].de,stu[i].cai);
+        }
+}

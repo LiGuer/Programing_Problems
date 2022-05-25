@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<vector>
+int check(vector<int> a,int N)
+{
+    int o=1;
+    for(int i=1;i<=N;i++){
+        if(2*i<=N&&a[2*i]>a[i]){o=-1;break;}
+        if(2*i+1<=N&&a[2*i+1]>a[i]){o=-1;break;}
+    }
+    if(o==1)return o;
+    for(int i=1;i<=N;i++){
+        if(2*i<=N&&a[2*i]<a[i]){o=0;break;}
+        if(2*i+1<=N&&a[2*i+1]<a[i]){o=0;break;}
+    }
+    return o;
+}
+void posttree(vector<int> a,int N,int i,vector<int>& tree)
+{
+    if(i>N)return;
+    posttree(a,N,2*i,tree);
+    posttree(a,N,2*i+1,tree);
+    tree.push_back(a[i]);
+    return;
+}
+int main()
+{
+    int M,N;
+    scanf("%d%d",&M,&N);
+    while(M--){
+        vector<int> a,tree;
+        a.resize(N+1);
+        for(int i=1;i<=N;i++)scanf("%d",&a[i]);
+        int o=check(a,N);
+        if(o==1)printf("Max Heap\n");
+        else if(o==-1)printf("Min Heap\n");
+        else if(o==0)printf("Not Heap\n");
+        posttree(a,N,1,tree);
+        for(int i=0;i<tree.size();i++){
+            if(i==0)printf("%d",tree[i]);
+            else printf(" %d",tree[i]);
+        }printf("\n");
+    }
+    return 0;
+}

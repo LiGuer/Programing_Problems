@@ -1,0 +1,72 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<map>
+#include<string>
+#include<vector>
+#include<algorithm>
+struct node
+{
+    string name;
+    int time,flag;
+};
+bool cmp1(node a,node b)
+{
+    if(a.name!=b.name)return a.name<b.name;
+    return a.time<b.time;
+}
+bool cmp2(node a,node b)
+{
+    return a.time<b.time;
+}
+map<string,int> car;
+vector<node> record,record2;
+int main()
+{
+    int N,Q;
+    scanf("%d%d",&N,&Q);
+    record.resize(N);
+    for(int i=0;i<N;i++){
+        int h,m,s;string flag;
+        cin>>record[i].name;
+        scanf("%d:%d:%d",&h,&m,&s);
+        record[i].time=h*3600+m*60+s;
+        cin>>flag;
+        if(flag=="in")record[i].flag=1;
+        else record[i].flag=-1;
+    }
+    sort(record.begin(),record.end(),cmp1);
+    for(int i=0;i<N-1;i++){
+        if(record[i].name==record[i+1].name
+            &&record[i].flag==1&&record[i+1].flag==-1){
+            record2.push_back(record[i]);
+            record2.push_back(record[i+1]);
+            car[record[i].name]+=record[i+1].time-record[i].time;
+        }
+    }
+    sort(record2.begin(),record2.end(),cmp2);
+    for(int i=0;i<Q;i++){
+        int h,m,s,t,ans=0;
+        scanf("%d:%d:%d",&h,&m,&s);
+        t=h*3600+m*60+s;
+        for(int j=0;j<record2.size();j++){
+            if(record2[j].time>t)break;
+            ans+=record2[j].flag;
+        }
+        printf("%d\n",ans);
+    }
+    vector<string> ans;
+    int maxn=0;
+    for(map<string,int>::iterator it=car.begin();it!=car.end();it++){
+        if(it->second>maxn){
+            maxn=it->second;
+            ans.clear();
+            ans.push_back(it->first);
+        }
+        else if(it->second==maxn){
+            ans.push_back(it->first);
+        }
+    }
+    for(int i=0;i<ans.size();i++)cout<<ans[i]<<' ';
+    printf("%02d:%02d:%02d",maxn/3600,maxn%3600/60,maxn%3600%60);
+}

@@ -1,0 +1,33 @@
+1170    ¶Ô
+¸½.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+bool judge(string b,string a)
+{
+	string b2=b;reverse(b2.begin(),b2.end());
+	for(int i=0;i<12;i++){
+		char t=a[0];
+		for(int j=1;j<12;j++)a[j-1]=a[j];
+		a[11]=t;
+		if(a==b||a==b2)return false;
+	}
+	
+	return true;
+}
+int main()
+{
+	int ans=0,k=0;
+	string anrr[10005];
+	string a="111222233333";
+	anrr[ans]=a;ans++;
+	while(next_permutation(a.begin(),a.end())){k++;
+		int flag=1;
+		for(int i=0;i<ans;i++){
+			if(!judge(anrr[i],a)){flag=0;break;}
+		}
+		if(flag){anrr[ans]=a;ans++;cout<<ans<<' '<<k<<' '<<a<<endl;}
+	}
+	cout<<ans;
+	return 0;
+}

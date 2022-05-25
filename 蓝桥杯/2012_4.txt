@@ -1,0 +1,28 @@
+1011010000
+0111010000
+0010110011   ¶Ô
+¸½.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	for(int i=0;i<1024;i++){
+		int s=10,tempi=i,cur=1;
+		while(tempi>0||cur<=10){
+			int t=tempi%2;
+			if(t==0)s-=cur;
+			else s*=2;
+			tempi/=2;
+			cur++;
+		}
+		if(s==100){
+			tempi=i;cur=1;
+			while(tempi>0||cur<=10){
+				cout<<tempi%2;
+				tempi/=2;
+				cur++;
+			}cout<<endl;
+		}
+	}
+} 

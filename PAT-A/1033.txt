@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<algorithm>
+struct node
+{
+    float price,dist;
+}sta[505];
+bool cmp(node a,node b)
+{
+    return a.dist<b.dist;
+}
+int main()
+{
+    float c,dist,unit;int N;
+    scanf("%f %f %f %d",&c,&dist,&unit,&N);
+    for(int i=0;i<N;i++){
+        scanf("%f %f",&sta[i].price,&sta[i].dist);
+    }
+    sta[N].dist=dist,sta[N].price=0;
+    sort(sta,sta+N+1,cmp);
+    if(sta[0].dist!=0){
+        cout<<"The maximum travel distance = 0.00";
+        return 0;
+    }
+    int cur=0;float gas=0,s=0;
+    while(cur<N&&gas>=0){
+        float candist=sta[cur].dist+c*unit;
+        int temp;float minprice=9999999;
+        for(int i=cur+1;i<=N;i++){
+            if(sta[i].dist>candist)break;
+            if(sta[i].price<minprice){
+                minprice=sta[i].price;temp=i;
+                if(sta[cur].price>=minprice){
+                    float diff=sta[temp].dist-sta[cur].dist;
+                    if(gas*unit<diff){
+                        s+=sta[cur].price*(diff-gas*unit)/unit;
+                        gas=diff/unit;
+                    }
+                break;
+                }
+            }
+        }
+        if(minprice==9999999){
+            printf("The maximum travel distance = %.2f",candist);
+            return 0;
+        }
+        float diff=sta[temp].dist-sta[cur].dist;
+        if(sta[cur].price<minprice){
+            s+=sta[cur].price*(c-gas);
+            gas=c;
+        }
+        if(cur!=N){cur=temp;gas-=diff/unit;}
+    }
+    printf("%.2f",s);
+}

@@ -1,0 +1,12 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int r;
+    double ans;
+    cin>>r;
+    const double pi=3.14159265358979323;
+    ans=pi*r*r;
+    printf("%.7lf",ans);
+    return 0;
+}

@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+#include<map>
+#include<set>
+#include<string>
+map<string,set<int>>title,author,key,publish,year;
+void query(map<string,set<int>> &m,string &str)
+{
+    if(m.find(str)!=m.end()){
+        for(auto it=m[str].begin();it!=m[str].end();it++){
+            printf("%07d\n",*it);
+        }
+    }
+    else
+        cout<<"Not Found\n";
+}
+int main()
+{
+    int N;
+    scanf("%d",&N);
+    for(int i=0;i<N;i++){
+        int id;scanf("%d\n",&id);
+        string str,str2;
+        getline(cin,str);
+        title[str].insert(id);
+        getline(cin,str2);
+        author[str2].insert(id);
+        while(cin>>str){
+            key[str].insert(id);
+            char c=getchar();
+            if(c=='\n')break;
+        }
+
+        getline(cin,str);
+        publish[str].insert(id);
+        getline(cin,str);
+        year[str].insert(id);
+    }
+    int M;
+    scanf("%d",&M);
+    for(int i=0;i<M;i++){
+        int num;
+        scanf("%d: ",&num);
+        printf("%d: ",num);
+        string str;
+        getline(cin,str);cout<<str<<'\n';
+        if(num==1)query(title,str);
+        else if(num==2)query(author,str);
+        else if(num==3)query(key,str);
+        else if(num==4)query(publish,str);
+        else if(num==5)query(year,str);
+    }
+    return 0;
+}
