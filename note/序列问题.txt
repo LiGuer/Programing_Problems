@@ -1,0 +1,133 @@
+* 最长子序列问题
+	* 最长公共子序列
+		\Problem
+			(input) 序列$a, b$
+			$
+				\max_{x}  \qu&  number(x)
+				s.t. \qu& x \subseteq a
+					& x \subseteq b
+			$
+
+		\Algorithm
+			- 动态规划
+				$
+					f(a_{1:n}, b_{1:m}) &= \{\mb
+						f(a_{1:n-1}, b_{1:m-1}) + 1 \qu&;  a_n = b_m
+						\max(f(a_{1:n}, b_{1:m-1}), f(a_{1:n-1}, b_{1:m})) \qu&;  a_n ≠ b_m
+					\me\right.
+
+					f(a_1, b_1) &= \{\mb
+						1		\qu; a_1 = b_1
+						0   \qu; a_1 ≠ b_1
+					\me\right.  \tag{初始易知值}
+				$
+
+
+		\Include
+			* 最长连续公共子序列
+
+				\Algorithm
+					- 动态规划
+						$
+							f(a_{1:n}, b_{1:m}) &= \{\mb
+								f(a_{1:n-1}, b_{1:m-1}) + 1 \qu&;  a_n = b_m
+								0  \qu&;  a_n ≠ b_m
+							\me\right.
+
+							f(a_i, b_1) &= \{\mb
+								1		\qu; a_i = b_1
+								0   \qu; a_i ≠ b_1
+							\me\right.  \tag{初始易知值}
+
+							f(a_1, b_i) &= \{\mb
+								1		\qu; a_1 = b_i
+								0   \qu; a_1 ≠ b_i
+							\me\right.
+						$
+
+	* 最长上升子序列
+		\Problem
+			(input) 序列$a$
+			$
+				\max_{x \subseteq a}  \qu&  number(x)
+				s.t. \qu& x_i < x_{i+1} \qu; i \in 1:number(x)
+			$
+			
+		\Algorithm
+			$
+				f(n) = max(f(i), max(f(j)) + 1) \qu; j < i \ and\ a_j < a_i
+				f(1) = 1  \tag{初始易知值}
+			$
+			- $f(n)$: 以$a_n$为结尾的最长上升子序列的长度.
+
+	* 最长公共前后缀
+		\Problem
+			(input) 序列$a$
+			$
+				\max \qu& k
+				s.t. \qu& a_{1:k} = a_{n-k+1:n}
+			$
+
+		\Algorithm
+			$
+				f(n) = \{\mb
+					f(n-1) + 1  \qu&;  a_n = a_{f(n-1) + 1}
+					f(f(n-1)) + 1 \qu&; a_n = a_{f(f(n-1)) + 1}
+					\vdots
+					0  \qu&; other
+				\me\right.
+			$
+
+	* 回文问题
+		* 最长回文子序列
+			\Problem 
+				(input) 序列$a$
+				$
+					\max_{x \subseteq a} \qu& n_x = number(x)
+					s.t. \qu& x_i = x_{n_x - i + 1}  \qu; i = 1:n_x  \tag{回文约束}
+				$
+
+			\Algorithm
+				- 动态规划
+					$
+						f(s,e) &= \{\mb
+							f(s-1,e+1) + 2 \qu& f(s,e) > 0 \ and\  a_{s-1} = a_{e+1}
+							0 \qu& other.
+							\me\right.
+						f(s,s) &= 1  \tag{初始易知值}
+						f(s,s+1) &= 2 \qu;a_s = a_{s+1}
+					$
+					- $f()$: $a_{s:e}$的回文字数, 不是回文序列则为0.
+
+		* 最长回文前缀
+			\Problem 
+				(input) 序列$a$
+				$
+					\max_{x \in 1:n_a} \qu& x
+					s.t. \qu& a_i = x_{x - i + 1}  \qu; i = 1:x  \tag{回文约束}
+				$
+
+	* 序列匹配问题
+		* 序列匹配
+			\Problem 
+				(input) $a, b \qu; b \subseteq a$
+				find $\min\ k$, let $b = a_{k:k+n_b-1}$
+
+			\Property
+				- if $b_{1:i} = a_{k:k+i-1}$, and $l_i = \text{最长公共前后缀长度}(b_{1:i})$
+					$
+					=> b_{1:l_i} &= a_{((k+i-1)-l_i+1):(k+i-1)}
+						b_{1:l'} &≠ a_{((k+i-1)-l'+1):(k+i-1)}  \qu; l' > l
+					$
+
+			\Algorithm
+				- KMP算法
+					$\mb
+						b_{1:i} = a_{k:k+i-1} &\ and\ & b_{i+1} &= a_{k+i} & => & b_{1:i+1} &=& a_{k:k+i}
+						b_{1:i} = a_{k:k+i-1} &\ and\ & b_{g(i)+1} &= a_{k+i} & =>  & b_{1:g(i)+1} &=& a_{(k+i)-g(i)+1:k+i}
+						b_{1:i} = a_{k:k+i-1} &\ and\ & b_{g(g(i))+1} &= a_{k+i} & =>  & b_{1:g(g(i))+1} &=& a_{(k+i)-g(g(i))+1:k+i}
+						&&&... & => &...&&
+						 & & b_{1} &= a_{k+1} & =>  & b_{1:1} &=& a_{k+i:k+i}
+						 & & b_{1} &≠ a_{k+1} & =>  & b_{1:1} &≠& a_{k+i:k+i}
+						\me
+					$

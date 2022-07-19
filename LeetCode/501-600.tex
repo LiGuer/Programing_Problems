@@ -1,0 +1,83 @@
+* 587. Erect the Fence
+	\Code{C++}
+		int X0, Y0;
+
+		class Solution {
+		public:
+			int cross(vector<int>& a, vector<int>& b, vector<int>& mid) {
+				return (a[0] - mid[0]) * (b[1] - mid[1])
+					- (b[0] - mid[0]) * (a[1] - mid[1]);
+			}
+		
+			static bool cmp(vector<int>& a, vector<int>& b) {
+		
+				int t = ((a[0] - X0) * (b[1] - Y0))
+					- ((b[0] - X0) * (a[1] - Y0));
+		
+				if (t < 0)
+					return true;
+				if (t == 0 && pow(a[0] -X0, 2) + pow(a[1] - Y0, 2) < pow(b[0] - X0, 2) + pow(b[1] - Y0, 2))
+					return true;
+		
+				return false;
+			}
+		
+			vector<vector<int>> outerTrees(vector<vector<int>>& a) {
+		
+				int Imin, n = a.size();
+		
+				vector<vector<int>> ans;
+				if (n <= 3) {
+					for (int i = 0; i < n; i++) {
+						ans.push_back(a[i]);
+					}
+					return ans;
+				}
+		
+				X0 = Y0 = 0x7FFFFFFF;
+		
+				for (int i = 0; i < n; i++) {
+					if (a[i][0] < X0 || (a[i][0] == X0 && a[i][1] < Y0)) {
+						X0 = a[i][0];
+						Y0 = a[i][1];
+						Imin = i;
+					}
+				}
+		
+				swap(a[0], a[Imin]);
+		
+				sort(a.begin() + 1, a.end(), cmp);
+		
+				ans.push_back(a[0]);
+				ans.push_back(a[1]);
+		
+				for (int i = 2; i < n; i++) {
+					ans.push_back(a[i]);
+		
+					int m = ans.size();
+		
+					while (m > 2) {
+						int t = cross(ans[m - 1], ans[m - 3], ans[m - 2]); 
+		
+						if (t > 0) {
+							ans.erase(ans.begin() + m - 2);
+						}
+						else
+							break;
+						m = ans.size();
+					}
+				}
+		
+				int m = ans.size();
+				for (int i = n - 2; i >= 2; i--) {
+					int t = cross(a[i], ans[m - 1], ans[0]); 
+		
+					if (t == 0 && !(a[i][0] == ans[m-2][0] && a[i][1] == ans[m - 2][1]))
+						ans.push_back(a[i]);
+					else
+						break;
+				}
+		
+				return ans;
+			}
+		};

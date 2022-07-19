@@ -1,0 +1,253 @@
+* 322
+	\Problem
+		(input) $\.a, b \qu; a_i, b \in \mathbb N$
+		$
+			\min_{x} \qu& ||\.x||_1 = \.1^T \.x
+			s.t. \qu& \.a^T \.x = b
+				& x_i \in \mathbb N
+		$
+
+	\Algorithm
+		- 动态规划
+			$
+				f(k) &= \{\mb
+					f(k - a_i) + 1  \qu& f(k - a_i) > 0 \ or\  k - a_i = 0
+					0  \qu& other
+				\me\right. \qu& k \in 1:\dim(\.a_i)
+				f(0) &= 0  \tag{初始易知值}
+				f(b) &= \min_{x} ||\.x||_1  \tag{答案}
+			$
+
+			- $f(k)$: 当$b \gets k$时的优化问题的解, 无解时为0.
+		
+	\Code{C++}
+		class Solution {
+			public:
+				int coinChange(vector<int>& coins, int amount) {
+					if (amount == 0)
+						return 0;
+			
+					sort(coins.begin(), coins.end());
+			
+					int table[amount + 1];
+					table[0] = 0;
+					for (int i = 1; i < amount + 1; i++) {
+						table[i] = 0xFFFFFFF;
+					}
+			
+					int size = coins.size();
+			
+					for (int i = 1; i <= amount; i++) {
+						for (int j = 0; j < size; j++) {
+							if (coins[j] > i)
+								break;
+			
+							int tmp = table[i - coins[j]] + 1;
+			
+							table[i] = table[i] < tmp ? table[i] : tmp;
+						}
+					}
+			
+					return table[amount] == 0xFFFFFFF ? -1 : table[amount];
+				}
+			};
+
+* 335. Self Crossing
+	\Code{C++}
+		class Solution {
+		public:
+			bool cross(int x1s, int x1e, int y1, int y2s, int y2e, int x2) {
+		
+				if ((x2 >= x1s && x2 <= x1e) && (y1 >= y2s && y1 <= y2e))
+					return true;
+		
+				return false;
+			}
+		
+			bool isSelfCrossing(vector<int>& a) {
+		
+		
+				int n = a.size();
+				
+				if(n > 1000)
+					return false;
+		
+				vector<int> x, y;
+		
+				x.push_back(0);
+				y.push_back(0);
+		
+				int x1s, x1e, y1;
+		
+				for (int i = 0; i < n; i++) {
+		
+					if (i % 4 == 0) {
+						y.push_back(y.back() + a[i]);
+					}
+					else if (i % 4 == 1) {
+						x.push_back(x.back() - a[i]);
+					}
+					else if (i % 4 == 2) {
+						y.push_back(y.back() - a[i]);
+					}
+					else if (i % 4 == 3) {
+						x.push_back(x.back() + a[i]);
+					}
+		
+					if (x.back() == 0 && y.back() == 0)
+						return true;
+		
+					int ys = y.size(), xs = x.size();
+		
+					if (i % 2 == 0) {
+		 
+						x1s = min(y[ys - 2], y[ys - 1]);
+						x1e = max(y[ys - 2], y[ys - 1]);
+						y1 = x[xs - 1];
+		
+						for (int j = 1; j < xs - 2; j += 2) {
+		
+							if (cross(x1s, x1e, y1, 
+								min(x[j], x[j - 1]), 
+								max(x[j], x[j - 1]), 
+								y[j]
+							))
+								return true;
+						}
+					}
+					else {
+		
+						x1s = min(x[xs - 2], x[xs - 1]);
+						x1e = max(x[xs - 2], x[xs - 1]);
+						y1 = y[ys - 1];
+		
+						for (int j = 0; j < ys - 2; j += 2) {
+		
+							if (cross(x1s, x1e, y1, 
+								min(y[j], y[j + 1]), 
+								max(y[j], y[j + 1]), 
+								x[j]
+							))
+								return true;
+		
+						}
+					}
+				}
+		
+				return false;
+			}
+		};
+
+* 354. Russian Doll Envelopes
+
+	\Code{C++}
+		class Solution {
+		public:
+			static bool cmp(vector<int>& a, vector<int>& b) {
+				if (a[0] != b[0])
+					return a[0] < b[0] ? true : false;
+				if (a[1] != b[1])
+					return a[1] > b[1] ? true : false;
+				return false;
+			}
+
+			int maxEnvelopes(vector<vector<int>>& a) {
+				sort(a.begin(), a.end(), cmp);
+
+				int n = a.size();
+
+				int f[n], ans = 0;
+				for (int i = 0; i < n; i++) {
+					f[i] = 0x7FFFFFFF;
+				}
+				f[0] = a[0][1];
+
+				for (int i = 1; i < n; i++) {
+					if (a[i][1] > f[ans]) {
+						ans++;
+						f[ans] = a[i][1];
+					}
+					else {
+						int ind = search(f, ans + 1, a[i][1]);
+						f[ind] = a[i][1];
+					}
+				}
+
+				return ans + 1;
+			}
+
+			int search(int* a, int n, int b) {
+				int l = 0, r = n - 1, mid;
+				while (l <= r) {
+					mid = (l + r) >> 1;
+					if (a[mid] < b) {
+						l = mid + 1;
+					}
+					else {
+						r = mid - 1;
+					}
+				}
+				return l;
+			}
+		};
+
+* 391. Perfect Rectangle
+	\Code{C++}
+		class Solution {
+		public:
+
+			bool isRectangleCover(vector<vector<int>>& a) {
+				map<pair<int, int>, int> b;
+				map<pair<int, int>, int>::iterator it;
+
+				int n = a.size(), S = 0;
+				
+				if(n==1)
+					return true;
+
+				for (int i = 0; i < n; i++) {
+					b[make_pair(a[i][0], a[i][1])]++;
+					b[make_pair(a[i][2], a[i][3])]++;
+					b[make_pair(a[i][0], a[i][3])]++;
+					b[make_pair(a[i][2], a[i][1])]++;
+
+					S += (a[i][2] - a[i][0]) * (a[i][3] - a[i][1]);
+				}
+
+				int s = 0, maxX = -0x7FFFFFFF, maxY = -0x7FFFFFFF, minX = 0x7FFFFFFF, minY = 0x7FFFFFFF;
+				for (it = b.begin(); it != b.end(); ++it) {
+					if (it->second == 1)
+						s++;
+					else if (it->second != 2 && it->second != 4)
+						return false;
+					//std::cout << it->first.first << "," << it->first.second << " => " << it->second << '\n';
+
+					maxX = max(maxX, it->first.first);
+					minX = min(minX, it->first.first);
+					maxY = max(maxY, it->first.second);
+					minY = min(minY, it->first.second);
+				}
+
+				if (s == 4 && S == (maxX - minX) * (maxY - minY)) {
+					it = b.find(make_pair(maxX, maxY));
+					if (it == b.end() || it->second != 1)
+						return false;
+
+					it = b.find(make_pair(maxX, minY));
+					if (it == b.end() || it->second != 1)
+						return false;
+
+					it = b.find(make_pair(minX, maxY));
+					if (it == b.end() || it->second != 1)
+						return false;
+
+					it = b.find(make_pair(minX, minY));
+					if (it == b.end() || it->second != 1)
+						return false;
+
+					return true;
+				}
+				else
+					return false;
+			}
+		};

@@ -1,0 +1,200 @@
+* 736 Parse Lisp Expression
+
+	\Code{C++}
+		class Solution {
+		public:
+			map<string, int> var;
+			int level = 0;
+
+			void token(string a, vector<string>& ans) {
+				string s;
+
+				int n = a.length();
+
+				if (a[0] != '(')
+					return;
+
+				for (int i = 1; i < n; i++) {
+					s = "";
+
+					if (a[i] == ')')
+						break;
+
+					else if (a[i] == '(') {
+						int cur = 0;
+						s += a[i++];
+
+						while (cur != 0 || a[i] != ')') {
+							if (a[i] == '(')
+								cur++;
+							else if (a[i] == ')')
+								cur--;
+
+							s += a[i++];
+						}
+						s += a[i++];
+						ans.push_back(s);
+						continue;
+					}
+
+					{
+						while ((a[i] >= 'a' && a[i] <= 'z')
+							|| (a[i] >= '0' && a[i] <= '9')
+							||  a[i] == '-')
+							s += a[i++];
+
+						ans.push_back(s);
+						continue;
+					}
+				}
+			}
+
+			bool number(string& a) {
+				if (a[0] >= '0' && a[0] <= '9')
+					return true;
+				if ((a[0] == '-') && (a[1] >= '0' && a[1] <= '9'))
+					return true;
+				return false;
+			}
+
+			int evaluate(string a) {
+				int n = a.length();
+
+				vector<string> tk;
+				token(a, tk);
+				int m = tk.size();
+
+				map<string, int> golvar;
+
+				{
+					if (tk[0] == "let") {
+						for (int i = 1; i < m - 1; i += 2) {
+							if (golvar.find(tk[i]) == golvar.end()) {
+								if (var.find(tk[i]) != var.end()) {
+									golvar[tk[i]] = var[tk[i]];
+								}
+								else
+									golvar[tk[i]] = 0x7FFFFFFF;
+							}
+
+							int a;
+							if (tk[i + 1][0] == '(')
+								a = evaluate(tk[i + 1]);
+							else if (number(tk[i + 1]))
+								a = stoi(tk[i + 1]);
+							else
+								a = var[tk[i + 1]];
+
+							var[tk[i]] = a;
+						}
+
+						int b;
+						if (tk[m - 1][0] == '(')
+							b = evaluate(tk[m - 1]);
+						else if (number(tk[m - 1]))
+							b = stoi(tk[m - 1]);
+						else
+							b = var[tk[m - 1]];
+
+						for (auto it = golvar.begin(); it != golvar.end(); it++) {
+							if (it->second == 0x7FFFFFFF)
+								var.erase(it->first); 
+							else 
+								var[it->first] = it->second;
+						}
+						return b;
+					}
+
+					else if (tk[0] == "mult" || tk[0] == "add") {
+						int a, b;
+
+						if (tk[1][0] == '(')
+							a = evaluate(tk[1]);
+						else if (number(tk[1]))
+							a = stoi(tk[1]);
+						else
+							a = var[tk[1]];
+
+						if (tk[2][0] == '(')
+							b = evaluate(tk[2]);
+						else if (number(tk[2]))
+							b = stoi(tk[2]);
+						else
+							b = var[tk[2]];
+
+						return tk[0] == "mult" ? a * b: a + b;
+					}
+				}
+				return 1;
+			}
+		};
+
+* 743. Network Delay Time
+
+	\Code{Java}
+		class Solution {
+			public int networkDelayTime(int[][] g, int n, int k) {
+				int m = g.length;
+
+				int[][] G = new int[n][n];
+
+				for (int i = 0; i < n; i++) {
+					Arrays.fill(G[i], 0xFFFFFFF);
+				}
+
+				for (int[] t : g) {
+					G[t[0] - 1][t[1] - 1] = t[2];
+				}
+
+				int[] dis = new int[n];
+				boolean[] mark = new boolean[n];
+
+				for (int i = 0; i < n; i++) {
+					dis[i] = 0xFFFFFFF;
+				}
+
+				dis[k - 1] = 0;
+
+				for (int i = 0; i < n; i++) {
+
+					int x = -1;
+
+					for (int j = 0; j < n; j++) {
+						if (!mark[j] && (x == -1 || dis[j] < dis[x])) {
+							x = j;
+						}
+					}
+
+					mark[x] = true;
+
+					for (int j = 0; j < n; j++) {
+						dis[j] = Math.min(dis[j], dis[x] + G[x][j]);
+					}
+
+				}
+
+				int ans = Arrays.stream(dis).max().getAsInt();
+				return ans == 0xFFFFFFF ? -1 : ans;
+			}
+		}
+
+
+* 753. Cracking the Safe
+	\Code{C++}
+		class Solution {
+		public:
+			string crackSafe(int n, int k) {
+				int a = pow(k, n), b = pow(k, n-1), nums[b];
+				string s(a + n - 1, '0');
+				fill(nums, nums + b, k - 1);
+
+				for (int i =  n - 1, t = 0; i < a + n - 1; i++) {
+					s[i] = nums[t] + '0';
+					nums[t]--;
+					t = t / k + (nums[t]+1) * (int) pow(k, n - 2);
+					
+				}
+
+				return s;
+			}
+		};

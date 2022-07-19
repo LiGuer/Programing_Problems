@@ -1,0 +1,150 @@
+* 684. Redundant Connection
+	\Code{Java}
+		class UnionFine {
+			int[] f;
+
+			public UnionFine(int n) {
+				f = new int[n + 1];
+
+				for (int i = 0; i < n + 1; i++) {
+					f[i] = i;
+				}
+			}
+
+			public int Find(int ind) {
+				int head = f[ind];
+				while (f[head] != head) {
+					head = f[head];
+				}
+				return head;
+			}
+
+			public boolean Union(int ind1, int ind2) {
+				int head1 = Find(ind1),
+					head2 = Find(ind2);
+
+				if (head1 == head2)
+					return false;
+
+				else {
+					int head = ind2, t;
+					
+					while (f[head] != head) {
+						t = f[head];
+						f[head] = head1;
+						head = t;
+					}
+
+					f[head] = head1;
+				}
+
+				return true;
+			}
+		}
+
+		class Solution {
+
+			public int[] findRedundantConnection(int[][] e) {
+
+				int n = e.length;
+
+				UnionFine u = new UnionFine(n);
+
+				for (int i = 0; i < n; i++) {
+					boolean t = u.Union(e[i][0], e[i][1]);
+
+					if (!t)
+						return e[i];
+				}
+
+				return e[n - 1];
+			}
+
+		}
+
+* 685. Redundant Connection II
+	\Code{Java}
+		class UnionFind {
+			int[] f;
+		
+			public UnionFind(int n) {
+				f = new int[n + 1];
+		
+				for (int i = 0; i < n + 1; i++) {
+					f[i] = i;
+				}
+			}
+		
+			public int Find(int ind) {
+				int head = f[ind];
+				while (f[head] != head) {
+					head = f[head];
+				}
+				return head;
+			}
+		
+			public boolean Union(int ind1, int ind2) {
+				int head1 = Find(ind1),
+					head2 = Find(ind2);
+		
+				if ((head1 == ind1 && head2 == ind2)
+					|| (head1 != ind1 && head2 == ind2 && head1 != head2))
+				{
+					f[ind2] = f[ind1];
+					return true;
+				}
+		
+				return false;
+			}
+		}
+		
+		class Solution {
+		
+			public int[] findRedundantDirectedConnection(int[][] e) {
+		
+				int n = e.length;
+		
+				int[] parent = new int[n + 1], e1 = new int[2], e2 = new int[2];
+				int index = 0;
+		
+				for (int i = 0; i < n; i++) {
+		
+					if (parent[e[i][1]] != 0) {
+						e1 = e[i];
+						e2 = new int[] { parent[e[i][1]], e[i][1] };
+		
+						index = i;
+						break;
+					}
+		
+					parent[e[i][1]] = e[i][0];
+				}
+		
+				UnionFind u = new UnionFind(n);
+		
+				if (index != 0) {
+					for (int i = 0; i < n; i++) {
+						if (i == index)
+							continue;
+		
+						boolean t = u.Union(e[i][0], e[i][1]);
+		
+						if (!t)
+							return e2;
+					}
+		
+					return e1;
+				}
+		
+				else {
+					for (int i = 0; i < n; i++) {
+						boolean t = u.Union(e[i][0], e[i][1]);
+		
+						if (!t)
+							return e[i];
+					}
+				}
+				return e[n - 1];
+			}
+		
+		}

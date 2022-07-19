@@ -1,0 +1,272 @@
+
+* 204. Count Primes
+
+	\Code{C++}
+		class Solution {
+		public:
+			int countPrimes(int n) {
+				if(n == 0 || n == 1)
+					return 0;
+				
+				bool f[n];
+				int ans = 0;
+				
+				for(int i=2;i<n;i++){
+					f[i] = 1;
+				}
+				
+				for (int i = 2; i < n; i++) {
+					if (f[i]){
+						ans++;
+						for (int j = i + i; j < n; j += i) 
+							f[j] = false;
+					}
+
+				}
+				return ans;
+			}
+		};
+
+* 207. Course Schedule
+	\Code{C++}
+		class Solution {
+		public:
+			bool canFinish(int m, vector<vector<int>>& a) {
+				int n = a.size();
+				
+				if(n <= 1 || m == 1)
+					return true;
+				
+				int f[m], Fg = 0, Fg2 = 0;
+				
+				memset(f, 0, sizeof(int) * m);
+				
+				while(true){
+					for(int i=0;i<n;i++){
+						if(f[a[i][1]] != -1){
+							f[a[i][0]]++;
+						}
+					}
+					Fg = 0;
+					
+					for(int i=0;i<m;i++){
+						if(f[i] == 0){
+							f[i] = -1;Fg++;
+						}
+						else if(f[i] > 0){
+							f[i] = 0;
+						}
+						else if(f[i] == -1){
+							Fg++;
+						}
+					}
+					
+
+					if(Fg == Fg2)
+						return false;
+					else if(Fg == m){
+						return true;
+					}
+					else Fg2 = Fg;
+				}
+				return true;
+
+			}
+		};
+
+* 214 Shortest Palindrome
+
+\Code{C++}
+	class Solution {
+	public:
+			int fun (string s) {
+					int n = s.length();
+					int g[n + 1];
+
+					memset(g, 0, sizeof(g));
+					
+					for (int i = 2; i <= n; i++) {
+							int j = g[i - 1];
+
+							while (j != 0 && s[j + 1] != s[i]) {
+									j = g[j];
+							}
+							if (s[i] == s[j + 1])
+									j++;
+
+							g[i] = j;
+					}
+
+
+
+					return g[n-1];
+			}
+
+
+			string shortestPalindrome(string s) {
+					int n = s.length();
+
+					int m = 0;
+
+					string s1 = s;
+
+					reverse(s1.begin(), s1.end());
+
+					string s2 = ' ' + s + '#' + s1;
+
+					int maxn = fun(s2) - 1;
+					
+
+					string a = "";
+
+					for (int i = n - 1; i > maxn; i--) {
+							a += s[i];
+					}
+
+					return a + s;
+			}
+	};
+
+* 233 Number of Digit One
+\Problem
+	(input) $n \in \mathbb N$
+		求所有比$n$小(包括$n$)的正整数中，含数字$1$的个数.
+
+\Property
+	- 第$i$出现$1$的现象, 是一个周期$10^{i+1}$宽$10^i$高$1$的矩形波.
+		第$i$位$1$的矩形位于整个周期的第$10^i+1 ~ 2 × 10^i$个数上,
+		$
+			(\mb
+				\text{数位 i} & \text{周期} & \text{波峰宽度} & \text{波峰高度}
+				0 & 10 & 1 & 1
+				1 & 100 & 10 & 1
+				2 & 1000 & 100 & 1
+				\vdots & \vdots & \vdots & \vdots
+				i & 10^{i+1} & 10^i & 1
+			\me)
+		$
+
+		eg.
+		$
+			& \mb 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \me \tag{一位$1$在第$2$个}
+			& \mb 0 & 1 & ... & 10 & ... & 19 & ... & ... & ... & 99 \me \tag{二位$1$在第$11-20$个}
+			& \mb 0 & 1 & ... & 100 & ... & 199 & ... & ... & ... & 999 \me \tag{三位$1$在第$101-200$个}
+		$
+
+\Algorithm
+	- 将$0 ~ n$的数分解为每一位上的$1$的矩形波, 并求和波峰即可.
+	- 步骤
+		- 首先, 求完成的周期数, 周期数$×$波峰宽 便是第一部分数字$1$的数量.
+		- 然后, 分析正在进行的周期, 求余剩下的数的长度rest
+			- $rest ≥ 2 × 10^i$ 时, 波峰部分已完成, 直接加波峰宽度即可.
+			- $10^i+1 ≤ rest < 2 × 10^i$ 时, 波峰部分正在进行, 加剩余数的数目即可
+			- $rest < 10^i+1 $ 时, 波峰部分未开始, 不用计算.
+
+\Code{C++}
+	class Solution {
+	public:
+		long long countDigitOne(long long n) {
+			long long ans = 0;
+
+			long long nt = n, dim = 0;
+			while (nt != 0) {
+				dim++;
+				nt /= 10;
+			}
+
+			for (long long i = 0; i < dim; i++) {
+				// 完成的周期
+				long long tmp = (n + 1) / (long long)pow(10, i + 1) * pow(10, i);
+
+				// 正在进行的周期
+				long long rest = (n + 1) % (long long)pow(10, i + 1),
+					tmp2 = rest / pow(10, i);
+
+				if (tmp2 > 1) {			// 完成一个波峰
+					tmp += pow(10, i);
+				}
+				else if (tmp2 == 1) {	// 正在完成一个波峰
+					tmp += rest % (long long)pow(10, i);
+				}
+										// 未完成一个波峰 (不用计算)
+				ans += tmp;
+			}
+
+			return ans;
+		}
+	};
+
+* 279. Perfect Squares
+\Code{C++}
+	class Solution {
+	public:
+		int numSquares(int n) {
+			vector<int> S;
+
+			int SqrtN = sqrt(n);
+			for (int i = 1; i <= SqrtN; i++) {
+				if (i * i <= n)
+					S.push_back(i * i);
+			}
+			int NS = S.size();
+
+			int f[n+1];
+			for (int i = 0; i <= n; i++) {
+				f[i] = 0xFFFFFFF;
+			}
+			f[0] = 0;
+
+			for (int i = 0; i <= n; i++) {
+				for (int j = 0; j < NS; j++) {
+					if (i - S[j] >= 0) {
+						f[i] = min(f[i], f[i - S[j]] + 1);
+					}
+				}
+			}
+			return f[n];
+		}
+	};
+
+* 300. Longest Increasing Subsequence
+	\Code{C++}
+		class Solution {
+		public:
+			int lengthOfLIS(vector<int>& a) {
+				int n = a.size();
+
+				int f[n], ans = 0;
+
+				for (int i = 0; i < n; i++) {
+					f[i] = 0x7FFFFFF;
+				}
+
+				f[0] = a[0];
+
+				for (int i = 1; i < n; i++) {
+					if (a[i] > f[ans]) {
+						ans++;
+						f[ans] = a[i];
+					}
+
+					else {
+						int ind = search(f, n, a[i]);
+						f[ind] = a[i];
+					}
+				}
+				return ans + 1;
+			}
+
+			int search(int* a, int n, int b) {
+				int l = 0, r = n - 1, mid;
+				while (l <= r) {
+					mid = (l + r) >> 1;
+					if (a[mid] < b) {
+						l = mid + 1;
+					}
+					else {
+						r = mid - 1;
+					}
+				}
+				return l;
+			}
+		};

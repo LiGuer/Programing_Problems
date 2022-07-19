@@ -1,0 +1,37 @@
+* 847. Shortest Path Visiting All Nodes
+	\Code{Java}
+		class Solution {
+			public int shortestPathLength(int[][] g) {
+				
+				int n = g.length;
+		
+				Queue<int[]> f = new LinkedList<int[]>();
+						boolean[][] fg = new boolean[n][1<<n];
+		
+				for(int i=0;i<n;i++){
+					f.offer(new int[]{i, 1<<i, 0});
+								fg[i][1<<i] = true;
+				}
+		
+				while(true){
+					int[] tmp = f.poll();
+		
+					int m = g[tmp[0]].length;
+					
+					//System.out.printf("%d %x %d\n", tmp[0],tmp[1],tmp[2]);
+		
+					if(tmp[1] == (1 << n) - 1)
+						return tmp[2];
+		
+					for(int v : g[tmp[0]]){
+									int t = tmp[1] | (1<<v);
+		
+									if(!fg[v][t]){
+										f.offer(new int[]{v, t, tmp[2]+1});
+										fg[v][t] = true;
+									}
+					}
+				}
+		
+			}
+		}
