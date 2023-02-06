@@ -1,34 +1,85 @@
-This is my Leetcode Notes.
-
-# Geometry
-| Problem | Algorithm |
-|---|---|
-| [593](problem/593.md) | Square determination |
-|||
-
-# Graph
-| Problem | Algorithm |
-|---|---|
-| [133](problem/133.md) | Traversal |
-| [207](problem/207.md) | Topological Sorting |
-| [210](problem/210.md) | Topological Sorting |
-| [310](problem/310.md) | Breadth First Search |
-| [329](problem/329.md) | Topological Sorting |
-| [332](problem/332.md) | Euler path |
-| [399](problem/399.md) | Path Search |
-| [547](problem/547.md) | Union-Find Sets |
-| [684](problem/684.md) | Union-Find Sets |
-| [685](problem/685.md) | Union-Find Sets |
-| [743](problem/743.md) | Shortest Path : Dijkstra |
-| [753](problem/753.md) | Euler path |
-| [765](problem/765.md) | Union-Find Sets |
-| [785](problem/785.md) | Bipartite Graph, Breadth First Search |
-| [787](problem/787.md) | Shortest Path : Bellman Ford |
-| [797](problem/797.md) | Traversal |
-| [802](problem/802.md) | Depth First Search |
-| [834](problem/834.md) | Depth First Search + Root Conversion of Tree |
-| [841](problem/841.md) | Naive question |
-| [847](problem/847.md) | Breadth First Search |
-| [886](problem/886.md) | Same as question 785|
-| [947](problem/947.md) | Union-Find Sets|
-|||
+| problem id | tag |
+| :---: | :---: |
+| [2](2.md) | ```Linked List```, ```add``` |
+| [3](3.md) | ```longest subsequence```, ```sliding window``` |
+| [4](4.md) | ```binary search``` |
+| [5](5.md) | ```longest subsequence``` |
+| [7](7.md) | ```digit``` |
+| [8](8.md) |   ```compiler``` |
+| [11](11.md) | ```two pointers``` |
+| [12](12.md) | ```compiler``` |
+| [13](13.md) | ```compiler``` |
+| [15](15.md) | ```prune``` |
+| [18](18.md) | ```prune``` |
+| [19](19.md) | ```linked list```, ```two pointers``` |
+| [22](22.md) | ```combination``` |
+| [23](23.md) | ```linked list```, ```sort``` |
+| [25](25.md) |   ```linked list``` |
+| [28](28.md) | ```sequence matching```, ```Knuth-Morris-Pratt``` |
+| [29](29.md) | ```divide```, ```bit manipulation``` |
+| [31](31.md) | ```permutation``` |
+| [33](33.md) | ```binary search``` |
+| [36](36.md) | ```sudoku``` |
+| [37](37.md) | ```depth-first search```, ```sudoku``` |
+| [39](39.md) | ```combination```  |
+| [41](41.md) | ```hash table``` |
+| [42](42.md) | ```two pointers``` |
+| [43](43.md) | ```multiply``` |
+| [44](44.md) |  |
+| [45](45.md) |  |
+| [46](46.md) | ```permutation```, ```recursion``` |
+| [47](47.md) | ```permutation```, ```recursion``` |
+| [48](48.md) | ```matrix```, ```rotate``` |
+| [49](49.md) | ```hash table``` |
+| [50](50.md) | ```pow```, ```split-half method``` |
+| [51](51.md) |  |
+| [54](54.md) |  |
+| [56](56.md) | ```sort``` |
+| [59](59.md) | ```simulation``` |
+| [60](60.md) |  |
+| [61](61.md) | ```list```, ```two pointers``` |
+| [62](62.md) |  |
+| [65](65.md) |  |
+| [73](73.md) | ```simulation``` |
+| [74](74.md) | ```search``` |
+| [77](77.md) | ```set theory```, ```combination``` |
+| [78](78.md) | ```set theory```, ```power set``` |
+| [86](86.md) | ```linked list``` |
+| [89](89.md) | ```gray code```, ```recursion``` |
+| [90](90.md) | ```set theory``` |
+| [133](133.md) | ```graph```, ```traversal``` |
+| [145](145.md) |  |
+| [204](204.md) |  |
+| [207](207.md) |  |
+| [210](210.md) |  |
+| [214](214.md) |  |
+| [233](233.md) |  |
+| [279](279.md) |  |
+| [300](300.md) |  |
+| [310](310.md) |  |
+| [322](322.md) |  |
+| [329](329.md) |  |
+| [332](332.md) |  |
+| [335](335.md) |  |
+| [354](354.md) |  |
+| [391](391.md) |  |
+| [399](399.md) |  |
+| [466](466.md) |  |
+| [547](547.md) |  |
+| [587](587.md) |  |
+| [593](593.md) |  |
+| [684](684.md) |  |
+| [685](685.md) |  |
+| [736](736.md) |  |
+| [743](743.md) | ```graph```, ```shortest paths``` |
+| [753](753.md) |  |
+| [765](765.md) |  |
+| [785](785.md) |  |
+| [787](787.md) |  |
+| [797](797.md) |  |
+| [802](802.md) |  |
+| [834](834.md) |  |
+| [841](841.md) |  |
+| [847](847.md) |  |
+| [886](886.md) |  |
+| [947](947.md) |  |
