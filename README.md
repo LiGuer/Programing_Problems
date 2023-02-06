@@ -1,2 +1,1 @@
-# AlgorithmProblemSet
-Algorithm Problem Set
+This is my study notes of programing problems.
