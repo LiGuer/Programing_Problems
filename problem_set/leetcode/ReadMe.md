@@ -1,3 +1,4 @@
+# LeedCode
 | problem id | tag |
 | :---: | :---: |
 | [2](2.md) | ```Linked List```, ```add``` |
@@ -5,7 +6,7 @@
 | [4](4.md) | ```binary search``` |
 | [5](5.md) | ```longest subsequence``` |
 | [7](7.md) | ```digit``` |
-| [8](8.md) |   ```compiler``` |
+| [8](8.md) | ```compiler``` |
 | [11](11.md) | ```two pointers``` |
 | [12](12.md) | ```compiler``` |
 | [13](13.md) | ```compiler``` |
@@ -14,14 +15,14 @@
 | [19](19.md) | ```linked list```, ```two pointers``` |
 | [22](22.md) | ```combination``` |
 | [23](23.md) | ```linked list```, ```sort``` |
-| [25](25.md) |   ```linked list``` |
+| [25](25.md) | ```linked list``` |
 | [28](28.md) | ```sequence matching```, ```Knuth-Morris-Pratt``` |
 | [29](29.md) | ```divide```, ```bit manipulation``` |
 | [31](31.md) | ```permutation``` |
 | [33](33.md) | ```binary search``` |
 | [36](36.md) | ```sudoku``` |
 | [37](37.md) | ```depth-first search```, ```sudoku``` |
-| [39](39.md) | ```combination```  |
+| [39](39.md) | ```combination``` |
 | [41](41.md) | ```hash table``` |
 | [42](42.md) | ```two pointers``` |
 | [43](43.md) | ```multiply``` |
@@ -50,36 +51,74 @@
 | [133](133.md) | ```graph```, ```traversal``` |
 | [145](145.md) |  |
 | [204](204.md) |  |
-| [207](207.md) |  |
-| [210](210.md) |  |
+| [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [214](214.md) |  |
 | [233](233.md) |  |
 | [279](279.md) |  |
 | [300](300.md) |  |
-| [310](310.md) |  |
+| [310](310.md) | ```graph```, ```breadth-first search``` |
 | [322](322.md) |  |
-| [329](329.md) |  |
-| [332](332.md) |  |
+| [329](329.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [332](332.md) | ```graph```, ```Euler path``` |
 | [335](335.md) |  |
 | [354](354.md) |  |
 | [391](391.md) |  |
-| [399](399.md) |  |
+| [399](399.md) | ```graph```, ```path search``` |
 | [466](466.md) |  |
-| [547](547.md) |  |
+| [547](547.md) | ```graph```, ```union-find set``` |
 | [587](587.md) |  |
-| [593](593.md) |  |
-| [684](684.md) |  |
-| [685](685.md) |  |
+| [593](593.md) | ```geometry``` |
+| [684](684.md) | ```graph```, ```union-find set``` |
+| [685](685.md) | ```graph```, ```union-find set``` |
 | [736](736.md) |  |
 | [743](743.md) | ```graph```, ```shortest paths``` |
-| [753](753.md) |  |
-| [765](765.md) |  |
-| [785](785.md) |  |
-| [787](787.md) |  |
-| [797](797.md) |  |
-| [802](802.md) |  |
-| [834](834.md) |  |
-| [841](841.md) |  |
-| [847](847.md) |  |
-| [886](886.md) |  |
-| [947](947.md) |  |
+| [753](753.md) | ```graph```, ```Euler path``` |
+| [765](765.md) | ```graph```, ```union-find Set``` |
+| [785](785.md) | ```graph```, ```bipartite graph```, ```breadth-first search``` |
+| [787](787.md) | ```graph```, ```shortest path``` |
+| [797](797.md) | ```graph```, ```traversal``` |
+| [802](802.md) | ```graph```, ```depth-first search``` |
+| [834](834.md) | ```graph``` |
+| [841](841.md) | ```graph``` |
+| [847](847.md) | ```graph```, ```breadth-first search``` |
+| [886](886.md) | ```graph``` |
+| [947](947.md) | ```graph```, ```union-find set``` |
+|||
+
+## graph
+| problem id | tag |
+| :---: | :---: |
+| [133](133.md) | ```graph```, ```traversal``` |
+| [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [310](310.md) | ```graph```, ```breadth-first search``` |
+| [329](329.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [332](332.md) | ```graph```, ```Euler path``` |
+| [399](399.md) | ```graph```, ```path search``` |
+| [547](547.md) | ```graph```, ```union-find set``` |
+| [684](684.md) | ```graph```, ```union-find set``` |
+| [685](685.md) | ```graph```, ```union-find set``` |
+| [743](743.md) | ```graph```, ```shortest paths``` |
+| [753](753.md) | ```graph```, ```Euler path``` |
+| [765](765.md) | ```graph```, ```union-find Set``` |
+| [785](785.md) | ```graph```, ```bipartite graph```, ```breadth-first search``` |
+| [787](787.md) | ```graph```, ```shortest path``` |
+| [797](797.md) | ```graph```, ```traversal``` |
+| [802](802.md) | ```graph```, ```depth-first search``` |
+| [834](834.md) | ```graph``` |
+| [841](841.md) | ```graph``` |
+| [847](847.md) | ```graph```, ```breadth-first search``` |
+| [886](886.md) | ```graph``` |
+| [947](947.md) | ```graph```, ```union-find set``` |
+|||
+
+## linked list
+| problem id | tag |
+| :---: | :---: |
+| [19](19.md) | ```linked list```, ```two pointers``` |
+| [23](23.md) | ```linked list```, ```sort``` |
+| [25](25.md) | ```linked list``` |
+| [86](86.md) | ```linked list``` |
+|||
+
