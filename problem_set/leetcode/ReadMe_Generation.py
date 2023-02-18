@@ -38,6 +38,7 @@ for root, dirs, files in os.walk("./"):
     files.sort(key = lambda x : int(x.split(".")[0]))
     
     for file in files:
+        print(file)
         fi = open(file, 'r')
         text = fi.read()
         fi.close()

@@ -34,6 +34,8 @@
 | [49](49.md) | ```hash table``` |
 | [50](50.md) | ```pow```, ```split-half method``` |
 | [51](51.md) |  |
+| [52](52.md) | ```permutation``` |
+| [53](53.md) | ```dynamic programming```, ```subsequence``` |
 | [54](54.md) |  |
 | [56](56.md) | ```sort``` |
 | [59](59.md) | ```simulation``` |
@@ -48,13 +50,19 @@
 | [86](86.md) | ```linked list``` |
 | [89](89.md) | ```gray code```, ```recursion``` |
 | [90](90.md) | ```set theory``` |
+| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
+| [102](102.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
 | [133](133.md) | ```graph```, ```traversal``` |
 | [145](145.md) |  |
+| [146](146.md) | ```linked list```, ```cache```, ```hash table``` |
+| [200](200.md) | ```search```, ```connectivity```, ```union-find set```, ```graph``` |
 | [204](204.md) |  |
 | [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [214](214.md) |  |
+| [215](215.md) | ```divide and conquer```, ```order``` |
 | [233](233.md) |  |
+| [236](236.md) | ```graph```, ```binary tree```, ```depth-first search``` |
 | [279](279.md) |  |
 | [300](300.md) |  |
 | [310](310.md) | ```graph```, ```breadth-first search``` |
@@ -89,9 +97,13 @@
 ## graph
 | problem id | tag |
 | :---: | :---: |
+| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
+| [102](102.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
 | [133](133.md) | ```graph```, ```traversal``` |
+| [200](200.md) | ```search```, ```connectivity```, ```union-find set```, ```graph``` |
 | [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
+| [236](236.md) | ```graph```, ```binary tree```, ```depth-first search``` |
 | [310](310.md) | ```graph```, ```breadth-first search``` |
 | [329](329.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [332](332.md) | ```graph```, ```Euler path``` |
@@ -120,5 +132,7 @@
 | [23](23.md) | ```linked list```, ```sort``` |
 | [25](25.md) | ```linked list``` |
 | [86](86.md) | ```linked list``` |
+| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
+| [146](146.md) | ```linked list```, ```cache```, ```hash table``` |
 |||
 
