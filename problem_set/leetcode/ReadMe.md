@@ -42,31 +42,39 @@
 | [60](60.md) |  |
 | [61](61.md) | ```list```, ```two pointers``` |
 | [62](62.md) |  |
+| [64](64.md) | ```dynamic Programming``` |
 | [65](65.md) |  |
 | [73](73.md) | ```simulation``` |
 | [74](74.md) | ```search``` |
 | [77](77.md) | ```set theory```, ```combination``` |
 | [78](78.md) | ```set theory```, ```power set``` |
+| [82](82.md) | ```linked list``` |
 | [86](86.md) | ```linked list``` |
 | [89](89.md) | ```gray code```, ```recursion``` |
 | [90](90.md) | ```set theory``` |
-| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
+| [92](92.md) | ```linked list```, ```reverse``` |
+| [93](93.md) | ```string```, ```depth-first search``` |
 | [102](102.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
+| [122](122.md) | ```sequence``` |
 | [133](133.md) | ```graph```, ```traversal``` |
+| [142](142.md) | ```linked list```, ```two pointers``` |
 | [145](145.md) |  |
 | [146](146.md) | ```linked list```, ```cache```, ```hash table``` |
+| [148](148.md) | ```linked list```, ```sort``` |
+| [199](199.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
 | [200](200.md) | ```search```, ```connectivity```, ```union-find set```, ```graph``` |
 | [204](204.md) |  |
 | [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [214](214.md) |  |
 | [215](215.md) | ```divide and conquer```, ```order``` |
+| [221](221.md) | ```dynamic programming``` |
 | [233](233.md) |  |
 | [236](236.md) | ```graph```, ```binary tree```, ```depth-first search``` |
 | [279](279.md) |  |
-| [300](300.md) |  |
+| [300](300.md) | ```longest subsequence``` |
 | [310](310.md) | ```graph```, ```breadth-first search``` |
-| [322](322.md) |  |
+| [322](322.md) | ```dynamic programming``` |
 | [329](329.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [332](332.md) | ```graph```, ```Euler path``` |
 | [335](335.md) |  |
@@ -74,11 +82,13 @@
 | [391](391.md) |  |
 | [399](399.md) | ```graph```, ```path search``` |
 | [466](466.md) |  |
+| [470](470.md) | ```random```, ```probability theory``` |
 | [547](547.md) | ```graph```, ```union-find set``` |
 | [587](587.md) |  |
 | [593](593.md) | ```geometry``` |
 | [684](684.md) | ```graph```, ```union-find set``` |
 | [685](685.md) | ```graph```, ```union-find set``` |
+| [718](718.md) | ```dynamic programming```, ```subsequence``` |
 | [736](736.md) |  |
 | [743](743.md) | ```graph```, ```shortest paths``` |
 | [753](753.md) | ```graph```, ```Euler path``` |
@@ -97,9 +107,9 @@
 ## graph
 | problem id | tag |
 | :---: | :---: |
-| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
 | [102](102.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
 | [133](133.md) | ```graph```, ```traversal``` |
+| [199](199.md) | ```graph```, ```binary tree```, ```traversal```, ```breadth-first search``` |
 | [200](200.md) | ```search```, ```connectivity```, ```union-find set```, ```graph``` |
 | [207](207.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
 | [210](210.md) | ```graph```, ```directed acyclic graph```, ```topological sorting``` |
@@ -131,8 +141,11 @@
 | [19](19.md) | ```linked list```, ```two pointers``` |
 | [23](23.md) | ```linked list```, ```sort``` |
 | [25](25.md) | ```linked list``` |
+| [82](82.md) | ```linked list``` |
 | [86](86.md) | ```linked list``` |
-| [92](92.md) | ```linked list```, ```graph```, ```reverse``` |
+| [92](92.md) | ```linked list```, ```reverse``` |
+| [142](142.md) | ```linked list```, ```two pointers``` |
 | [146](146.md) | ```linked list```, ```cache```, ```hash table``` |
+| [148](148.md) | ```linked list```, ```sort``` |
 |||
 
